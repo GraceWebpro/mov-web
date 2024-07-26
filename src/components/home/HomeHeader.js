@@ -1,9 +1,6 @@
 import React from "react";
 import "./HomeHeader.css";
 import { Link } from "react-router-dom";
-//import profile from '../../profile.jpg';
-//import Navbar from '../../components/navbar/Navbar';
-//import Nav from '../../components/nav2/Nav';
 
 
 
