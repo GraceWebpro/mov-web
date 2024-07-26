@@ -9,7 +9,7 @@ function HomeHeader({ user, selected }) {
     return (
         <div className='HomeHeader'>
             <Hero />
-            Hello homepage
+            <h1>Hello homepage</h1>
             <Link to="about">Go to about</Link>
 
         </div>
