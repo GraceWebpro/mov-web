@@ -62,10 +62,10 @@
    }
 
 .menu-icon {
-  display: none;
-  font-size: 1.5rem;
-color: var(--title-color);
-cursor: pointer;
+    display: none;
+    font-size: 1.5rem;
+    color: var(--title-color);
+    cursor: pointer;
 }
 
 .nav-elements ul {
