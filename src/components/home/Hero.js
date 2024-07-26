@@ -38,12 +38,13 @@ const HeroSection = styled.section`
     url(https://images.pexels.com/photos/133325/pexels-photo-133325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=600&dpr=1);
   background-position: center;
   background-size: cover;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   color: #fafafc;
-position: relative;
-box-sizing: border-box;
-transition: height 0.3s ease-in-out;
+  position: relative;
+  box-sizing: border-box;
+  transition: height 0.3s ease-in-out;
   .heroInner {
       margin-top: 10px;
     max-width: 95%;
