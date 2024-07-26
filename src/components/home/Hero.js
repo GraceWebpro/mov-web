@@ -12,7 +12,7 @@ const Hero = () => {
   return (
     <div>
       <HeroSection className="light hero" style={{ height: "300px", }}>
-        <div className={`heroInner ${showNotice ? 'hero-with-notice' : 'hero-without-notice'} `}>
+        <div className={`heroInner ${showNotice ? 'heroInner-with-notice' : 'heroInnerwithout-notice'} `}>
             {showNotice && (
                 <div className="notice">
                     <div className='left'>
@@ -51,10 +51,10 @@ const HeroSection = styled.section`
     margin: 0 auto;
   }
 
-  .hero-with-notice {
+  .heroInner-with-notice {
       height: 100vh;
   }
-  .hero-without-notice {
+  .heroInner-without-notice {
       height: calc(100vh - 60px);
   }
   .notice {
