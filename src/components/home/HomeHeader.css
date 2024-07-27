@@ -44,3 +44,23 @@ button {
 .btn:active {
   transform: scale(0.95);
 }
+
+/* App.css */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+}
+
+img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+video {
+  display: block;
+  margin-bottom: 10px;
+}

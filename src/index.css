@@ -49,3 +49,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Main CSS file or App.css */
+
+.movie-cards-container {
+  padding: 20px;
+}
+
+.movie-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+
+@media (max-width: 600px) {
+  .movie-card {
+    max-width: 150px; /* Adjust card size for smaller screens */
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .movie-card {
+    max-width: 180px; /* Slightly larger cards for medium screens */
+  }
+}
+
+@media (min-width: 900px) {
+  .movie-card {
+    max-width: 200px; /* Default card size for larger screens */
+  }
+}
