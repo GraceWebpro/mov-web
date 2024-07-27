@@ -1,7 +1,5 @@
 
 import React, { useState } from 'react';
-import { getDocs, doc, deleteDoc, query, where } from 'firebase/firestore'
-import { movieCollectionRef } from '../../config/Firestore-collections'
 
 const SearchBar = ({ onSearch }) => {
 

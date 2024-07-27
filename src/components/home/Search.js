@@ -15,7 +15,7 @@ const Search = () => {
   return (
     <div>
       <h1>Movie Search</h1>
-      <Search onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} />
       <div className="movie-cards-container">
         {movies.length > 0 ? (
           <div className="movie-cards-grid">
