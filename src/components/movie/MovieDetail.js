@@ -5,7 +5,7 @@ import { doc, collection, getDoc, getDocs } from 'firebase/firestore';
 
 
 const MovieDetail = () => {
-  const { movieId } = useParams(); // Get the movie ID from the URL
+  const { id } = useParams(); // Get the movie ID from the URL
   const [movie, setMovie] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,8 +13,8 @@ const MovieDetail = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        console.log("Fetching movie with ID:", movieId); // Log the ID
-        const movieDoc = doc(db, 'movies', movieId); // Create a reference to the document
+        console.log("Fetching movie with ID:", id); // Log the ID
+        const movieDoc = doc(db, 'movies', id); // Create a reference to the document
         const docSnapshot = await getDoc(movieDoc); // Fetch the document
         
         if (docSnapshot.exists()) {
@@ -37,7 +37,7 @@ const MovieDetail = () => {
     };
 
     fetchMovie();
-  }, [movieId]);
+  }, [id]);
 
   
   if (loading) {
@@ -51,13 +51,19 @@ const MovieDetail = () => {
   return (
     <div>
       <h1>{movie.title}</h1>
-      <img src={movie.posterImage} alt="Movie Poster" />
+      <img src={movie.posterImage} alt={movie.title} style={{ width: '300px', height: 'auto' }} />
       <p>{movie.description}</p>
+      <h2>Cast</h2>
+      <p>{movie.cast.join(', ')}</p>
       <h2>Episodes</h2>
       <ul>
-        {episodes.map((episode) => (
+        {episodes.map(episode => (
           <li key={episode.id}>
-            Episode {episode.episodeNumber}: {episode.title} - {episode.description}
+            <h3>Episode {episode.episodeNumber}: {episode.title}</h3>
+            <p>{episode.description}</p>
+            <p>Duration: {episode.duration}</p>
+            <p>Air Date: {episode.airDate}</p>
+            <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer">Watch Episode</a>
           </li>
         ))}
       </ul>
