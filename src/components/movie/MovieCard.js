@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './MovieCard.css'; // Import a CSS file for styling (optional)
 import { getDocs } from 'firebase/firestore';
 import { movieCollectionRef } from '../../config/Firestore-collections';
+import { useNavigate } from 'react-router-dom';
+
 
 const MovieCard = () => {
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -15,10 +18,15 @@ const MovieCard = () => {
 
     fetchMovies();
   }, []);
+
+  const handleMovieClick = (movieId) => {
+    navigate(`movies/${movieId}`);
+  };
+
   return (
     <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', }}>
       {movies.map((movie, i) => (
-        <div key={i} className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '200px', }}>
+        <div key={i} onClick={() => handleMovieClick(movie.id)}  className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '200px', }}>
           <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', borderRadius: '8px' }} />
           <div className="details">
           

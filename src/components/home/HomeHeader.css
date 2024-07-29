@@ -64,3 +64,64 @@ video {
   display: block;
   margin-bottom: 10px;
 }
+
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.notice-section {
+  padding: 10px;
+  width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.another-image {
+  margin-top: 20px;
+  
+}
+
+.cancel-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 10px;
+  margin-top: -100px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: start;
+
+}
+
+@media (max-width: 576px) {
+ 
+  .notice-section p {
+    font-size: 0.75em;
+}
+
+.another-image {
+    width: 90%;
+}
+}
