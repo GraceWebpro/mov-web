@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
         <Link to="/" className="nav__logo">
-                <img src={logo} alt='logo' width='35' height='35' /> Movie Stream 
+                <img src={logo} alt='logo' width='30' height='30' /> Movie Stream 
             </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
@@ -36,7 +36,7 @@ const Navbar = () => {
              </Link>
            </li>
            <li className="nav__item">
-             <Link to="chinese" className="nav__link">
+             <Link to="about" className="nav__link">
                Chinese Drama
              </Link>
            </li>

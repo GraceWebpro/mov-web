@@ -7,7 +7,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 
 export default function AddMovies() {
 
-    const [name, setName] = useState('')
+    const [title, setName] = useState('')
     const [image, setImage] = useState('')
     const [percent, setPercent] = useState(0);
     
@@ -15,11 +15,11 @@ export default function AddMovies() {
     
         
         e.preventDefault()
-        if(name === ''){
+        if(title === ''){
             return
         }
         //const moviesCollRef = collection(db, 'movies')
-        addDoc(movieCollectionRef, {name},{image}).then(response => {
+        addDoc(movieCollectionRef, {title},{image}).then(response => {
             console.log(response)
         }).catch(error => {
             console.log(error.message)
@@ -56,6 +56,8 @@ export default function AddMovies() {
         ); 
     }
 
+
+
   return (
     <div>
         <h4>AddMovie</h4>
@@ -64,7 +66,7 @@ export default function AddMovies() {
             <input 
             id="name" 
             type='text'
-            value={name} 
+            value={title} 
             onChange={e => setName(e.target.value)} 
             /><br />
             <label htmlFor="image">Movie Image</label>

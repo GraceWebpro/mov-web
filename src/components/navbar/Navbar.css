@@ -1,7 +1,7 @@
 
 .header {
     position: relative;
-    width: 100%;
+    max-width: 100%;
     top: 0;
     left: 0;
     background-color: transparent;
@@ -12,30 +12,23 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 10px 15px;
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
-}
+  align-content: center;
+  height: var(--header-height);
+  margin-left: 10px;
+  margin-right: 10px;
 
-
-.navbar {
-    height: var(--header-height);
-  width: 100%;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    z-index: var(--z-fixed);
-    background-color: var(--body-color);
-   
-  position: relative;
-  
 }
 
 .nav__logo {
     color: var(--first-color);
     transition: color 0.4s;
+    display: flex;
+    gap: 10px;
     font-size: var(--h2-font-size);
     font-family: var(--second-font);
    }

@@ -23,7 +23,7 @@ const Hero = () => {
                 </div>
             )}
           <span>            
-            <img src={Image} style={{ marginTop: "20px", }} className='image' alt="hero-image" width="70%" />
+            <img src={Image} style={{ marginTop: "20px", justifyContent: 'center' }} className='image' alt="hero-image" width="70%" />
           </span>
         </div>
       </HeroSection>
@@ -38,11 +38,12 @@ const HeroSection = styled.section`
     url(https://images.pexels.com/photos/133325/pexels-photo-133325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=600&dpr=1);
   background-position: center;
   background-size: cover;
-  height: fit-content;
   display: flex;
   flex-direction: column;
   color: #fafafc;
   position: relative;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   transition: height 0.3s ease-in-out;
   .heroInner {
@@ -52,7 +53,6 @@ const HeroSection = styled.section`
   }
 
   .heroInner-with-notice {
-      height: 100vh;
   }
   .heroInner-without-notice {
       height: calc(100vh - 60px);

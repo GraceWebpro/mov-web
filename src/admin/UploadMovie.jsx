@@ -1,57 +1,54 @@
 // UploadVideo.js
 import React, { useState } from 'react';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { addDoc } from 'firebase/firestore';
 import { storage } from '../config/Firebase';
 import { movieCollectionRef } from '../config/Firestore-collections'
 
+
 const UploadMovie = () => {
-  const [videoFile, setVideoFile] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [title, setTitle] = useState('');
+  const [cast, setCast] = useState('');
   const [description, setDescription] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleFileChange = (e) => {
     if (e.target.name === 'video') {
-      setVideoFile(e.target.files[0]);
+      setThumbnailFile(e.target.files[0]);
     } else if (e.target.name === 'thumbnail') {
       setThumbnailFile(e.target.files[0]);
     }
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!videoFile || !thumbnailFile) return;
-
-    // Upload video file
-    const videoRef = ref(storage, `videos/${videoFile.name}`);
-    const uploadTaskVideo = uploadBytes(videoRef, videoFile);
+    if (!thumbnailFile) return;
 
     // Upload thumbnail file
     const thumbnailRef = ref(storage, `thumbnails/${thumbnailFile.name}`);
-    const uploadTaskThumbnail = uploadBytes(thumbnailRef, thumbnailFile);
+    const uploadTask = uploadBytesResumable(thumbnailRef, thumbnailFile);
 
-    uploadTaskVideo.on('state_changed', (snapshot) => {
+    uploadTask.on('state_changed', (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       setUploadProgress(progress);
     }, (error) => {
       console.error('Error uploading video:', error);
     }, async () => {
-      const videoURL = await getDownloadURL(videoRef);
       const thumbnailURL = await getDownloadURL(thumbnailRef);
 
       try {
         await addDoc(movieCollectionRef, {
           title,
           description,
-          url: videoURL,
+          cast: cast.split(',').map(name => name.trim()),
           thumbnailUrl: thumbnailURL,
         });
         alert('Video uploaded successfully!');
         setTitle('');
         setDescription('');
-        setVideoFile(null);
+        setCast('');
         setThumbnailFile(null);
         setUploadProgress(0);
       } catch (error) {
@@ -59,13 +56,8 @@ const UploadMovie = () => {
       }
     });
 
-    uploadTaskThumbnail.on('state_changed', (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      setUploadProgress(progress);
-    }, (error) => {
-      console.error('Error uploading thumbnail:', error);
-    });
   };
+  
 
   return (
     <div>
@@ -80,8 +72,8 @@ const UploadMovie = () => {
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
         </label>
         <label>
-          Video File:
-          <input type="file" name="video" accept="video/*" onChange={handleFileChange} required />
+          Cast:
+          <textarea value={cast} onChange={(e) => setCast(e.target.value)} required />
         </label>
         <label>
           Thumbnail Image:
@@ -90,6 +82,8 @@ const UploadMovie = () => {
         <button type="submit">Upload Video</button>
       </form>
       {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
+
+      
     </div>
   );
 };

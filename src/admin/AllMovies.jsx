@@ -1,14 +1,14 @@
 // VideoList.js
 import React, { useState, useEffect } from 'react';
-import { collection, query, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../config/Firebase';
+import { query, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { movieCollectionRef } from '../config/Firestore-collections'
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const q = query(collection(db, 'videos'));
+      const q = query(movieCollectionRef);
       const querySnapshot = await getDocs(q);
       const videoList = [];
       querySnapshot.forEach((doc) => {
@@ -22,7 +22,7 @@ const VideoList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, 'videos', id));
+      await deleteDoc(doc(movieCollectionRef, id));
       setVideos(videos.filter((video) => video.id !== id));
       alert('Video deleted successfully!');
     } catch (error) {
@@ -38,6 +38,7 @@ const VideoList = () => {
           <li key={video.id}>
             <h3>{video.title}</h3>
             <p>{video.description}</p>
+            <p>{video.url}</p>
             <video controls width="300">
               <source src={video.url} type="video/mp4" />
               Your browser does not support the video tag.

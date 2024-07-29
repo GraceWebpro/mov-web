@@ -25,7 +25,7 @@ const VideoList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, 'videos', id));
+      await deleteDoc(doc(movieCollectionRef, id));
       setVideos(videos.filter((video) => video.id !== id));
       alert('Video deleted successfully!');
     } catch (error) {
@@ -36,7 +36,7 @@ const VideoList = () => {
   const handleEdit = async (id) => {
     if (editingVideoId === id) {
       try {
-        await updateDoc(doc(db, 'videos', id), {
+        await updateDoc(doc(movieCollectionRef, id), {
           title: editTitle,
           description: editDescription,
         });
