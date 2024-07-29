@@ -11,7 +11,6 @@ const Hero = () => {
   return (
     <div>
       <div className='hero-section' style={{ backgroundImage: '    url(https://images.pexels.com/photos/133325/pexels-photo-133325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=600&dpr=1)' }}>
-        <ht>Your hero content</ht>
         {showNotice && (
           <div className="notice-section">
             <div className='left'>
@@ -21,6 +20,7 @@ const Hero = () => {
             <button onClick={handleCancel} className="cancel-btn">x</button>
           </div>
         )}
+        <ht>Your hero content</ht>
         <div className="another-image">
           <img src={Image} alt="ano" className="image" />
           <p style={{ color: "black", opacity: '0%'}}>...</p>
