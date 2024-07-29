@@ -23,8 +23,8 @@ const MovieCard = () => {
   return (
     <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', }}>
       {movies.map((movie) => (
-           <Link to={`movies/${movie.id}`}>
-        <div key={movie.id} className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '200px', }}>
+        <Link to={`/movies/${movie.id}`} key={movie.id} >
+        <div className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '200px', }}>
           <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', borderRadius: '8px' }} />
           <div className="details">
           

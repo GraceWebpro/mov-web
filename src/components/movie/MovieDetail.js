@@ -48,13 +48,16 @@ const MovieDetail = () => {
     return <p>Movie not found.</p>;
   }
 
+const cast = movie.cast || [];
+
+
   return (
     <div>
       <h1>{movie.title}</h1>
       <img src={movie.posterImage} alt={movie.title} style={{ width: '300px', height: 'auto' }} />
       <p>{movie.description}</p>
       <h2>Cast</h2>
-      <p>{movie.cast.join(', ')}</p>
+      <p>{cast.length > 0 ? cast.join(', ') : 'No cast information available'}</p>
       <h2>Episodes</h2>
       <ul>
         {episodes.map(episode => (
