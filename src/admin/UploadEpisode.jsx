@@ -1,7 +1,7 @@
 // src/components/EpisodeUpload.js
 import React, { useState } from 'react';
 import { collection, addDoc, doc } from 'firebase/firestore';
-import { db } from '../../config/Firebase';
+import { db } from '../config/Firebase';
 import { storage } from '../config/Firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 

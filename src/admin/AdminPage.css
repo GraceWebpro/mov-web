@@ -1,0 +1,155 @@
+/* src/components/Sidebar.css */
+.sidebar {
+    height: 100vh;
+    width: 250px; /* Default width */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    color: #fff;
+    transition: width 0.3s;
+    overflow: hidden;
+  }
+  
+  .sidebar.closed {
+    width: 60px; /* Collapsed width */
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  nav ul li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+  
+  nav ul li:hover {
+    background-color: rgb(49, 49, 49);
+  }
+  
+  .sidebar-text {
+    margin-left: 10px;
+    display: inline-block;
+    color: #fff;
+  }
+  
+  .sidebar.closed .sidebar-text {
+    display: none;
+  }
+  
+  
+  
+/* src/components/AdminNavbar.css */
+.admin-navbar {
+    width: 100%;
+    background-color: #ccc;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0px;
+    height: 60px;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid rgb(158, 158, 158);
+    z-index: 1000;
+    transition: margin-left 0.3s;
+}
+
+.admin-navbar.sidebar-closed {
+    margin-left: 60px; /* Adjust based on collapsed sidebar width */
+}
+
+.admin-navbar.sidebar-open {
+    margin-left: 250px; /* Default sidebar width */
+}
+
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 0px;
+    margin-left: -50px;
+}
+
+.admin-navbar h1 {
+    margin-left: 20px;
+    font-size: 1.20em;
+}
+
+.admin-details {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Push admin details to the right */
+}
+
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #555;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 10px;
+    text-transform: uppercase; /* Ensure the letter is uppercase */
+}
+
+.admin-username {
+    font-size: 16px;
+}
+  
+/* src/components/AdminPage.css */
+.admin-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f4f1f8;
+}
+
+.main-content {
+    margin-left: 250px; /* Default sidebar width */
+    transition: margin-left 0.3s;
+    width: 100%;
+}
+
+.main-content.sidebar-closed {
+    margin-left: 60px; /* Adjust collapsed sidebar width */
+}
+
+.content {
+    margin-top: 80px;
+    padding: 20px;
+    overflow: auto; /* Ensure content does not overflow */
+}
+
+.nav__logo {
+    color: var(--first-color);
+    transition: color 0.4s;
+    display: flex;
+    gap: 0px;
+    font-size: var(--h2-font-size);
+    font-family: var(--second-font);
+   }

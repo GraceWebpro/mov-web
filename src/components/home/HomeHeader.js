@@ -1,16 +1,11 @@
 import React from "react";
 import "./HomeHeader.css";
-//import { Link } from "react-router-dom";
 import Hero from "./Hero";
 import UploadMovie from '../../admin/UploadMovie';
-//import EditMovie from '../../admin/EditMovies';
-//import MoviesList from '../../admin/MoviesList';
 import RealtimeMovies from '../../admin/RealtimeMovies';
 import Search from "./search/Search";
-
-
-//import AllMovies from '../../admin/AllMovies';
-import AllMovies from "./AllMovies";
+import AllDrama from "./HomeDrama";
+import AllMovies from './HomeMovies';
 
 
 
@@ -21,8 +16,8 @@ function HomeHeader({ user, selected }) {
         <div className='HomeHeader'>
             <Hero />
             <Search />
-            <AllMovies />
-
+            <AllDrama />
+<AllMovies />
 
             <main>
                 
