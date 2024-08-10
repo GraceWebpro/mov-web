@@ -87,7 +87,7 @@ const EpisodeUpload = () => {
         
         <div className="content">
          
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='form-container'>
               <h2 className='form-header'>Upload Episode</h2>
               <label>
                 Movie ID:

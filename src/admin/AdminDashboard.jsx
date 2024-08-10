@@ -124,7 +124,7 @@ const AdminDashboard = ({ children }) => {
                   {editingVideoId === video.id ? 'Save' : 'Edit'}
                 </button>
                 {editingVideoId === video.id && (
-                  <form>
+                  <form className='form-container'>
                     <label>
                       Title:
                       <input type="text" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />

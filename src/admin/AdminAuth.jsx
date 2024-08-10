@@ -27,7 +27,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
     {userLoggedIn && (<Navigate to={'/admin/dashboard'} replace={true} />)}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='form-container'>
         <h2>Admin Login</h2>
 
         <input

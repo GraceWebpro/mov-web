@@ -108,7 +108,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
            </select>
        )}
        {selectedMovie && (
-           <form onSubmit={handleSubmit}>
+           <form onSubmit={handleSubmit} className='form-container'>
             <h2>Edit Movie</h2>
             <label>
           Title:

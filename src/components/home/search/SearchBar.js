@@ -13,12 +13,12 @@ const SearchBar = ({ onSearch }) => {
 
     return (
         <form onSubmit={handleSearch} className="search-bar">
-            <input className="search-input" style={{ width: "100%",
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    fontSize: "14px",
-    }}
+            <input className="search-input" style={{ width: "90%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                fontSize: "14px",
+                }}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
