@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import './AdminAuth.css'
+import { auth } from '../config/Firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, login } = useAuth();
+    const { user, userLoggedIn } = useAuth();
     const navigate = useNavigate();
   
-    useEffect(() => {
-      if (user) {
-        navigate('/admin/dashboard'); // Redirect authenticated users away from the login page
-      }
-    }, [user, navigate]);
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+    
+    const handleSubmit = async (email, password) => {
       try {
-        await login(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
         navigate('/admin/dashboard'); // Redirect to the dashboard after login
       } catch (error) {
         console.error('Login failed:', error.message);
       }
     };
 
+    
+  
+
   return (
     <div className="login-page">
+    {userLoggedIn && (<Navigate to={'/admin/dashboard'} replace={true} />)}
       <form onSubmit={handleSubmit}>
         <h2>Admin Login</h2>
 
@@ -48,7 +48,7 @@ const LoginPage = () => {
         <button type="submit">Login</button>
       </form>
     </div>
-  );
+  )
 };
 
 export default LoginPage;

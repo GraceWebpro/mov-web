@@ -29,19 +29,19 @@
     cursor: pointer;
   }
   
-  nav ul {
+  .side-ul {
     list-style: none;
     padding: 0;
   }
   
-  nav ul li {
+  .side-ul li {
     padding: 15px 20px;
     display: flex;
     align-items: center;
     transition: background-color 0.3s;
   }
   
-  nav ul li:hover {
+  .side-ul li:hover {
     background-color: rgb(49, 49, 49);
   }
   
@@ -140,9 +140,8 @@
 }
 
 .content {
-    margin-top: 80px;
+    margin-top: 20px;
     padding: 20px;
-    overflow: auto; /* Ensure content does not overflow */
 }
 
 .nav__logo {
@@ -153,3 +152,46 @@
     font-size: var(--h2-font-size);
     font-family: var(--second-font);
    }
+
+   /* form */
+form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+
+}
+
+form input, form textarea {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  width: 100%;
+  height: 40px;
+  background-color: var(--first-color);
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
