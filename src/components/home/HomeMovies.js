@@ -1,60 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { query, where, orderBy, getDocs } from 'firebase/firestore';
+import '../movie/MovieCard.css'; // Import a CSS file for styling (optional)
+import { getDocs, orderBy, where } from 'firebase/firestore';
 import { movieCollectionRef } from '../../config/Firestore-collections';
-import Card from '../movie/Card';
+//import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-const MovieList = () => {
+
+const MovieCard = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchMovies = async () => {
-    try {
-      const q = query(
-        movieCollectionRef,
-        where('category', '==', 'Drama'), // Ensure this matches the case in your Firestore data
-        orderBy('timestamp', 'desc')
-      );
-      const moviesSnapshot = await getDocs(q);
-
-      console.log('Fetched movies snapshot:', moviesSnapshot);
-
-      const moviesList = moviesSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      console.log('Fetched movies:', moviesList);
-
-      setMovies(moviesList);
-    } catch (error) {
-      console.error("Error fetching movies: ", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const moviesSnapshot = await getDocs(movieCollectionRef, where('category', '==', 'drama'), orderBy('timestamp', 'desc'));
+        const moviesList = moviesSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setMovies(moviesList);
+      } catch (error) {
+        console.error("Error fetching movies: ", error);
+      }
+    };
+
     fetchMovies();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  const handleMovieClick = (movieId) => {
+    navigate(`movies/${movieId}`);
+  };
+
 
   return (
     <div>
-      <h1>Drama Movies</h1>
-      <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-        {movies.length > 0 ? (
-          movies.map(movie => (
-            <Card key={movie.id} movie={movie} />
-          ))
-        ) : (
-          <p>No drama movies found.</p>
-        )}
-      </div>
+                <h2 style={{ color: 'black', marginTop: '30px', marginLeft: '10px'}}>New Drama Uploads</h2>
+
+    <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
+      {movies.map((movie) => (
+        <div key={movie.id} onClick={() => handleMovieClick(movie.id)} className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '100px', }}>
+          <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', borderRadius: '8px' }} />
+          <div className="details">
+          
+            <h3 className="movie-card__title">{movie.title}</h3>
+            <p className="desc">{movie.description}</p>
+            <p className="desc">{movie.category}</p>
+
+          
+          </div>
+        </div>
+      ))}
+      
+    </div>
     </div>
   );
 };
 
-export default MovieList;
+export default MovieCard;

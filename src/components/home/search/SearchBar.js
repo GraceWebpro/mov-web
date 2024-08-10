@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
 
     return (
         <form onSubmit={handleSearch} className="search-bar">
-            <input className="search-input" style={{ width: "90%",
+            <input className="search-input" style={{ width: "100%",
                 padding: "10px",
                 border: "1px solid #ccc",
                 borderRadius: "4px",

@@ -11,11 +11,13 @@
     align-items: center;
     justify-content: center;
     max-width: 100%;
+    width: 100%;
+    padding: 0 5px;
 }
 
 .search-input {
-    width: 600px;
-    max-width: 400px;
+    width: 100%;
+    max-width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -24,8 +26,9 @@
 }
 
 .search-btn {
-    padding: 9px;
+    padding: 9px 10px;
     margin-left: 0;
+    margin-right: 5px;
     border: none;
     background-color: var(--first-color);
     cursor: pointer;
