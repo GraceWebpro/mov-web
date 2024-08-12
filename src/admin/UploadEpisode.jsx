@@ -13,8 +13,7 @@ import './AdminPage.css';
 const EpisodeUpload = () => {
   const [movieId, setMovieId] = useState('');
   const [episodeNumber, setEpisodeNumber] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+
   const [videoUrl, setVideoUrl] = useState('');
   const [duration, setDuration] = useState('');
   const [airDate, setAirDate] = useState('');
@@ -60,8 +59,6 @@ const EpisodeUpload = () => {
         const episodeCollectionRef = collection(doc(db, 'movies', movieId), 'episodes');
         await addDoc(episodeCollectionRef, {
           episodeNumber: parseInt(episodeNumber, 10),
-          title,
-          description,
           videoUrl: videoURL,
           duration,
           airDate
@@ -99,16 +96,7 @@ const EpisodeUpload = () => {
                 <input type="number" value={episodeNumber} onChange={(e) => setEpisodeNumber(e.target.value)} required />
               </label>
               <br />
-              <label>
-                Title:
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-              </label>
-              <br />
-              <label>
-                Description:
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-              </label>
-              <br />
+              
               <label>
                 Video URL:
                 <input type="file" name="video" value={videoUrl} accept="video/*" onChange={handleFileChange} required />

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import { updatePassword } from 'firebase/auth';
+import { auth, db } from '../config/Firebase';
+
+import { updatePassword, onAuthStateChanged } from 'firebase/auth';
 //import MoviesList from './MoviesList';
 //mport AllMovies from './AllMovies';
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
+import { getDoc, doc } from 'firebase/firestore';
 import './AdminPage.css';
 
 const UserAccount = () => {
@@ -13,12 +16,41 @@ const UserAccount = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
-  const user = useAuth(); // Access user from context
+const { user } = useAuth();
+
+  const [userDetails, setUserDetails] = useState(null);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   
   };
+
+  const fetchUserData = async () => {
+    auth.omAuthStateChanged(async(user) => {
+      console.log(user);
+      const docRef = doc(db, 'users', user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setUserDetails(docSnap.data());
+
+      } else {
+        console.log("user not logged in")
+      }
+    });
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  async function handleLogout() {
+    try {
+      await auth.signOut();
+      window.location.href='/admin/login';
+    } catch (error) {
+      console.error('User logged out!', error.message);
+    }
+  }
 
   const handleSubmit = async(e) => {
       e.preventDefault();
@@ -38,8 +70,8 @@ const UserAccount = () => {
   };
 
 
-   const adminName = user ? user.displayName || 'Admin' : 'Admin'; // Use displayName if available
-  const adminInitial = adminName ? adminName[0] : ''; // Extract the first letter for initials
+  const adminName = user ? user.displayName || 'Admin' : 'Admin'; // Use displayName if available
+  const adminInitial = adminName ? adminName[1] : ''; // Extract the first letter for initials
 
   return (
     <div className='admin-page'>
@@ -53,7 +85,19 @@ const UserAccount = () => {
         <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
         
             <div className="content">
-                <p>Email: {user?.email}</p>
+              {userDetails ? (
+                <>
+                  <h3>Welcome {userDetails.name} </h3>
+                  <div>
+                    <p>Email: {userDetails.email} </p>
+                    <p>Name: {userDetails.name} </p>
+                  </div>
+                  <button onClick={handleLogout}>Logout</button>
+                </>
+              ) : (
+                <p>Loading...</p>
+              )}
+                <p>Email: {userDetails?.email}</p>
                 <form onSubmit={handleSubmit}>
                     <h2>Change Password</h2>
                     <label>Current Password:

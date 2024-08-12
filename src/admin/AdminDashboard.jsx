@@ -95,14 +95,18 @@ const AdminDashboard = ({ children }) => {
           <table>
           <thead>
           <tr>
+          <th>Movie ID</th>
           <th>Movie Title</th>
           <th>Description</th>
           <th>Episodes</th>
+          <th>Eit Movie</th>
+          <th>Delete Movie</th>
           </tr>
           </thead>
           <tbody>
           {videos.map((video) => (
             <tr key={video.id}>
+            <td>{video.id}</td>
             <td>{video.title}</td>
             <td>{video.description}</td>
             <td>{video.eposodes.length}</td> 

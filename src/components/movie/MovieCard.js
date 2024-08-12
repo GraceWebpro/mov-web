@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './MovieCard.css'; // Import a CSS file for styling (optional)
-import { getDocs, orderBy, where, limit, startAfter } from 'firebase/firestore';
+import { getDocs, query, orderBy, where, limit, startAfter } from 'firebase/firestore';
 import { movieCollectionRef } from '../../config/Firestore-collections';
 //import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -12,18 +12,17 @@ const MovieCard = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
   
+
   useEffect(() => {
     const fetchMovies = async () => {
-      setLoading(true);
       try {
-        const moviesSnapshot = await getDocs(movieCollectionRef, where('category', '==', 'series'), orderBy('timestamp', 'desc'), limit(4));
-        const moviesList = moviesSnapshot.docs.map((doc) => ({
+        const querySnapshot = await getDocs(movieCollectionRef, where('category', '==', 'series'), limit(4), orderBy('createdAt', 'desc'));
+        const moviesList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setMovies(moviesList);
-        setLastVisible([moviesList.length - 1]);
-        setLoading(false);
+        setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
       } catch (error) {
         console.error("Error fetching movies: ", error);
       }
@@ -33,16 +32,21 @@ const MovieCard = () => {
   }, []);
 
   const handleLoadMore = async () => {
-    setLoading(true);
-    const moviesSnapshot = await getDocs(movieCollectionRef, where('category', '==', 'series'), orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(4));
-        const moviesList = moviesSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setMovies([...movies, ...moviesList]);
-        setLastVisible([moviesList.length - 1]);
-        setLoading(false);
-  }
+
+    if (lastVisible) {
+      const q = query(movieCollectionRef, where('category', '==', 'series'), orderBy('createdAt', 'desc'), startAfter(lastVisible), limit(4));
+      
+      const querySnapshot = await getDocs(q);
+      const moreMovies = querySnapshot.docs.map((doc) => ({
+            id: doc.id, ...doc.data() })
+        );
+
+      setMovies(prevMovies => [...prevMovies, ...moreMovies]);
+      
+      setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
+      
+    }
+  };
 
   const handleMovieClick = (movieId) => {
     navigate(`movies/${movieId}`);
@@ -57,18 +61,16 @@ const MovieCard = () => {
           <div className="details">
           
             <h3 className="movie-card__title">{movie.title}</h3>
-            <p className="desc">{movie.description}</p>
+            <p className="desc">{movie.tags}</p>
             <p className="desc">{movie.category}</p>
 
           
           </div>
         </div>
       ))}
-      {loading ? (
-        <p>Loading...</p>
-      ): (
-        <button onClick={handleLoadMore} className='card-btn'>Load More Drama</button>
-      )}
+       (
+        <button onClick={handleLoadMore} className='card-btn'>Load All Drama</button>
+      )
       
     </div>
   );

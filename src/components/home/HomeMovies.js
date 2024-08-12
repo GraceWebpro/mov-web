@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../movie/MovieCard.css'; // Import a CSS file for styling (optional)
-import { getDocs, orderBy, where } from 'firebase/firestore';
+import { getDocs, orderBy, where, limit } from 'firebase/firestore';
 import { movieCollectionRef } from '../../config/Firestore-collections';
 //import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ const MovieCard = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const moviesSnapshot = await getDocs(movieCollectionRef, where('category', '==', 'drama'), orderBy('timestamp', 'desc'));
+        const moviesSnapshot = await getDocs(movieCollectionRef, where('category', '==', 'series'), orderBy('timestamp', 'desc'), limit(2));
         const moviesList = moviesSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),

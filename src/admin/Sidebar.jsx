@@ -8,17 +8,23 @@ import { RiVideoUploadLine } from 'react-icons/ri';
 import { TbLogout } from 'react-icons/tb';
 import { auth } from '../config/Firebase';
 import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Handler for user logout
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      alert('You have been logged out successfully.');
+      navigate('/admin/login')
       // Redirect or handle post-logout behavior here
     } catch (error) {
       console.error("Error signing out:", error.message);
+      alert('An error occured while logging out!');
     }
   };
 

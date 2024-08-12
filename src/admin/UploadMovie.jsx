@@ -1,7 +1,7 @@
 // UploadVideo.js
 import React, { useState } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { addDoc } from 'firebase/firestore';
+import { addDoc, serverTimestamp } from 'firebase/firestore';
 import { storage } from '../config/Firebase';
 import { movieCollectionRef } from '../config/Firestore-collections'
 import Sidebar from './Sidebar';
@@ -12,9 +12,16 @@ import { useAuth } from './AuthContext'; // Adjust the path if necessary
 
 const UploadMovie = () => {
   const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [movieUrl, setMovieUrl] = useState('');
   const [title, setTitle] = useState('');
   const [cast, setCast] = useState('');
   const [description, setDescription] = useState('');
+  const [releaseYear, setReleaseYear] = useState('');
+  const [status, setStatus] = useState('');
+  const [tags, setTags] = useState('');
+
+
+
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { user } = useAuth(); // Access user from context
@@ -29,9 +36,7 @@ const UploadMovie = () => {
   const adminInitial = adminName ? adminName[0] : ''; // Extract the first letter for initials
 
   const handleFileChange = (e) => {
-    if (e.target.name === 'video') {
-      setThumbnailFile(e.target.files[0]);
-    } else if (e.target.name === 'thumbnail') {
+    if (e.target.name === 'thumbnail') {
       setThumbnailFile(e.target.files[0]);
     }
   };
@@ -57,13 +62,20 @@ const UploadMovie = () => {
         await addDoc(movieCollectionRef, {
           title,
           description,
+          releaseYear,
+          status,
+          tags: tags.split(',').map(name => name.trim()),
           cast: cast.split(',').map(name => name.trim()),
           thumbnailUrl: thumbnailURL,
+          createdAt: serverTimestamp(),
         });
         alert('Video uploaded successfully!');
         setTitle('');
         setDescription('');
         setCast('');
+        setTags('');
+        setReleaseYear('');
+        setStatus('');
         setThumbnailFile(null);
         setUploadProgress(0);
       } catch (error) {
@@ -92,20 +104,34 @@ const UploadMovie = () => {
 
         <label>
           Title:
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <input type="text" value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} required />
         </label>
         <label>
           Description:
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
         </label>
         <label>
+          Tags:
+          <textarea value={tags} onChange={(e) => setTags(e.target.value)} required />
+        </label>
+        <label>
           Cast:
           <textarea value={cast} onChange={(e) => setCast(e.target.value)} required />
+        </label>
+        <label>
+          Status:
+          <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} required />
+        </label>
+        <label>
+          Release Year:
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
         </label>
         <label>
           Thumbnail Image:
           <input type="file" name="thumbnail" accept="image/*" onChange={handleFileChange} required />
         </label>
+      
+        <br />
         <button type="submit">Upload Video</button>
       </form>
       {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}

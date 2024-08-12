@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import './AdminAuth.css'
-import { auth } from '../config/Firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '../config/Firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const { user, userLoggedIn } = useAuth();
     const navigate = useNavigate();
   
     
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+    const handleSubmit = async (email, password) => {
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert('User logged in!');
-        window.location.href='/admin/dashboard';
-        //navigate('/admin/dashboard'); // Redirect to the dashboard after login
+        await createUserWithEmailAndPassword(auth, email, password);
+        const user = auth.currentUser;
+        if (user) {
+            await setDoc(doc(db, "users", user.uid), {
+                email: user.email,
+                name: user.name,
+                password: user.password
+            });
+        }
+        alert('User registered successfully!');
+        navigate('/admin/dashboard'); // Redirect to the dashboard after login
       } catch (error) {
         console.error('Login failed:', error.message);
-        alert('User not logged in');
+        alert('User not registered!');
       }
     };
 
@@ -32,6 +39,15 @@ const LoginPage = () => {
     <div className="login-page">
       <form onSubmit={handleSubmit} className='form-container'>
         <h2>Admin Login</h2>
+
+
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
         <input
           type="email"
