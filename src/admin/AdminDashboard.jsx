@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+//import { useAuth } from './AuthContext';
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
 import './AdminPage.css';
 import { query, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { movieCollectionRef } from '../config/Firestore-collections'
-import { db } from '../config/Firebase'
+import { db, auth } from '../config/Firebase'
 
 
 
 const AdminDashboard = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { user } = useAuth(); // Access user from context
+  const user = auth.currentUser; // Access user from context
   const [videos, setVideos] = useState([]);
   const [editingVideoId, setEditingVideoId] = useState(null);
   const [editTitle, setEditTitle] = useState('');

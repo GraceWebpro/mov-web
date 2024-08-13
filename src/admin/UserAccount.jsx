@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 import { auth, db } from '../config/Firebase';
 
-import { updatePassword, onAuthStateChanged } from 'firebase/auth';
+import { updatePassword, onAuthStateChanged, signOut } from 'firebase/auth';
 //import MoviesList from './MoviesList';
 //mport AllMovies from './AllMovies';
 import Sidebar from './Sidebar';
@@ -16,36 +16,19 @@ const UserAccount = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
-const { user } = useAuth();
+const user = auth.currentUser;
 
-  const [userDetails, setUserDetails] = useState(null);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   
   };
 
-  const fetchUserData = async () => {
-    auth.omAuthStateChanged(async(user) => {
-      console.log(user);
-      const docRef = doc(db, 'users', user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserDetails(docSnap.data());
-
-      } else {
-        console.log("user not logged in")
-      }
-    });
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  
 
   async function handleLogout() {
     try {
-      await auth.signOut();
+      await signOut(auth);
       window.location.href='/admin/login';
     } catch (error) {
       console.error('User logged out!', error.message);
@@ -85,19 +68,8 @@ const { user } = useAuth();
         <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
         
             <div className="content">
-              {userDetails ? (
-                <>
-                  <h3>Welcome {userDetails.name} </h3>
-                  <div>
-                    <p>Email: {userDetails.email} </p>
-                    <p>Name: {userDetails.name} </p>
-                  </div>
-                  <button onClick={handleLogout}>Logout</button>
-                </>
-              ) : (
-                <p>Loading...</p>
-              )}
-                <p>Email: {userDetails?.email}</p>
+                <h3>Welcome {user.name} </h3>
+                <p>Email: {user.email}</p>
                 <form onSubmit={handleSubmit}>
                     <h2>Change Password</h2>
                     <label>Current Password:

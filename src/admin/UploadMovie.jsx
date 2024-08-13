@@ -7,7 +7,8 @@ import { movieCollectionRef } from '../config/Firestore-collections'
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
 import './AdminPage.css';
-import { useAuth } from './AuthContext'; // Adjust the path if necessary
+import { auth } from '../config/Firebase'
+
 
 
 const UploadMovie = () => {
@@ -24,7 +25,7 @@ const UploadMovie = () => {
 
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { user } = useAuth(); // Access user from context
+  const user = auth.currentUser; // Access user from context
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

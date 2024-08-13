@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+//import { useAuth } from './AuthContext';
 import './AdminAuth.css'
 import { auth } from '../config/Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -8,14 +8,14 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, userLoggedIn } = useAuth();
     const navigate = useNavigate();
   
     
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
         alert('User logged in!');
         window.location.href='/admin/dashboard';
         //navigate('/admin/dashboard'); // Redirect to the dashboard after login

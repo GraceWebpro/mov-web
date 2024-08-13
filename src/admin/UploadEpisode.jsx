@@ -1,7 +1,7 @@
 // src/components/EpisodeUpload.js
 import React, { useState } from 'react';
 import { collection, addDoc, doc } from 'firebase/firestore';
-import { db } from '../config/Firebase';
+import { db, auth } from '../config/Firebase';
 import { storage } from '../config/Firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useAuth } from './AuthContext'; // Adjust the path if necessary
@@ -19,7 +19,7 @@ const EpisodeUpload = () => {
   const [airDate, setAirDate] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { user } = useAuth(); // Access user from context
+  const user = auth.currentUser; // Access user from context
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

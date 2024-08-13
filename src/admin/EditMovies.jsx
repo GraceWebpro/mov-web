@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { doc, updateDoc } from 'firebase/firestore'
-import { db } from '../config/Firebase'
-import { useAuth } from './AuthContext'; // Adjust the path if necessary
+import { db, auth } from '../config/Firebase'
 import { useParams, useNavigate } from 'react-router-dom';
 //import MoviesList from './MoviesList';
 //mport AllMovies from './AllMovies';
@@ -24,7 +23,7 @@ export default function EditMovie() {
   //const [cast, setCast] = useState('');
   //const [description, setDescription] = useState('');
 const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { user } = useAuth(); // Access user from context
+  const user = auth.currentUser; // Access user from context
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

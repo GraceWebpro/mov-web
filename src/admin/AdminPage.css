@@ -54,8 +54,23 @@
   .sidebar.closed .sidebar-text {
     display: none;
   }
-  
-  
+  /*
+  @media (max-width: 600px) {
+    .sidebar.closed {
+      width: 0;
+      overflow: hidden;
+    }
+    .admin-navbar.sidebar-closed {
+      margin-left: 0; /* Adjust based on collapsed sidebar width *
+  }
+    .admin-navbar {
+      margin-left: 0px;
+    }
+
+    .main-content {
+      margin-left: 0;
+    }
+  }*/
   
 /* src/components/AdminNavbar.css */
 .admin-navbar {

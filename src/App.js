@@ -7,9 +7,11 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import AdminAuth from './admin/AdminAuth';
-import { AuthProvider } from './admin/AuthContext';
-import PrivateRoute from './admin/PrivateRoute';
-import { onAuthStateChanged } from 'firebase/auth';
+import AdminRegister from './admin/AdminRegister';
+
+//import { AuthProvider } from './admin/AuthContext';
+//import PrivateRoute from './admin/PrivateRoute';
+//import { onAuthStateChanged } from 'firebase/auth';
 //import { Navigate } from 'react-router-dom';
 import AdminDashboard from './admin/AdminDashboard';
 import UploadMovie from './admin/UploadMovie';
@@ -22,13 +24,7 @@ import {auth} from './config/Firebase';
 
 
 function App() {
-
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-  auth.onAuthStateChanged((user) => {
-    setUser(user);
-  });
-  });
+  const user = auth.currentUser;
 
   const location = useLocation();
 
@@ -40,30 +36,31 @@ function App() {
   return (
     
     <div className="App">
-  <AuthProvider>
+
         {/* Conditionally render Navbar */}
         {!isAdminPage && <Navbar />}
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<HomeHeader />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="movies/:id" element={<MovieDetail />} />
           
           {/* Admin Routes */}
-          <Route path="/admin" element={user ? <AdminDashboard /> : <Navigate to='/admin/login' />} />
+          <Route path="/admin" element={user ? <Navigate to='/admin/dashboard' /> : <Navigate to='/admin/login' />} />
           <Route path="/admin/upload-movie" element={<UploadMovie />} />
           <Route path="/admin/upload-episode" element={<UploadEpisode />} />
           <Route path="/admin/edit-movie" element={<EditMovie />} />
           <Route path="/admin/account" element={<UserAccount />} />
 
           <Route path="/admin/login" element={<AdminAuth />} />
+          <Route path="/admin/signup" element={<AdminRegister />} />
           {/* Redirect to home for unmatched routes */}
           {/*<Route path="*" element={<Navigate to="/" />} />*/}
         </Routes>
 
         
         <Footer />
-</AuthProvider>
+
     </div>
   );
 }
