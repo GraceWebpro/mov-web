@@ -68,7 +68,7 @@ const user = auth.currentUser;
         <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
         
             <div className="content">
-                <h3>Welcome {user.name} </h3>
+                <h3>Welcome </h3>
                 <p>Email: {user.email}</p>
                 <form onSubmit={handleSubmit}>
                     <h2>Change Password</h2>
