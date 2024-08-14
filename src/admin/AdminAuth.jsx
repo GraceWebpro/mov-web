@@ -17,8 +17,7 @@ const LoginPage = () => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         alert('User logged in!');
-        window.location.href='/admin/dashboard';
-        //navigate('/admin/dashboard'); // Redirect to the dashboard after login
+        navigate('/admin/dashboard'); // Redirect to the dashboard after login
       } catch (error) {
         console.error('Login failed:', error.message);
         alert('User not logged in');

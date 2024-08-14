@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
-import { auth, db } from '../config/Firebase';
+import { auth } from '../config/Firebase';
 
-import { updatePassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { updatePassword, signOut } from 'firebase/auth';
 //import MoviesList from './MoviesList';
 //mport AllMovies from './AllMovies';
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
-import { getDoc, doc } from 'firebase/firestore';
 import './AdminPage.css';
 
 const UserAccount = () => {
@@ -59,18 +57,17 @@ const user = auth.currentUser;
   return (
     <div className='admin-page'>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <div className={`admin-navbar ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <div className={`admin-navbar ${isSidebarOpen ? 'navbar-open' : 'navbar-closed'}`}>
         <AdminNavbar toggleSidebar={toggleSidebar} adminInitial={adminInitial}
         adminName={adminName} />
-      </div>
-      
+      </div>      
       {/* Other content */}
-        <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
-        
+      <div className={`main-content ${isSidebarOpen ? 'content-open' : 'content-closed'}`}>
+      
             <div className="content">
                 <h3>Welcome </h3>
                 <p>Email: {user.email}</p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='form-container'>
                     <h2>Change Password</h2>
                     <label>Current Password:
                     <input 

@@ -90,13 +90,12 @@ const UploadMovie = () => {
   return (
     <div className='admin-page'>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <div className={`admin-navbar ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <div className={`admin-navbar ${isSidebarOpen ? 'navbar-open' : 'navbar-closed'}`}>
         <AdminNavbar toggleSidebar={toggleSidebar} adminInitial={adminInitial}
         adminName={adminName} />
-      </div>
-      
+      </div>      
       {/* Other content */}
-      <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <div className={`main-content ${isSidebarOpen ? 'content-open' : 'content-closed'}`}>
         
         <div className="content">
           

@@ -12,6 +12,7 @@ import { db, auth } from '../config/Firebase'
 
 const AdminDashboard = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const user = auth.currentUser; // Access user from context
   const [videos, setVideos] = useState([]);
   const [editingVideoId, setEditingVideoId] = useState(null);
@@ -71,8 +72,21 @@ const AdminDashboard = ({ children }) => {
   
   };
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
 
-   const adminName = user ? user.displayName || 'Admin' : 'Admin'; // Use displayName if available
+    if (windowWidth <= 600) {
+      setIsSidebarOpen(false);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [windowWidth]);
+
+
+  const adminName = user ? user.displayName || 'Admin' : 'Admin'; // Use displayName if available
   const adminInitial = adminName ? adminName[0] : ''; // Extract the first letter for initials
   
   const handleMovieClick = (movieId) => {
@@ -82,13 +96,12 @@ const AdminDashboard = ({ children }) => {
   return (
     <div className='admin-page'>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <div className={`admin-navbar ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <div className={`admin-navbar ${isSidebarOpen ? 'navbar-open' : 'navbar-closed'}`}>
         <AdminNavbar toggleSidebar={toggleSidebar} adminInitial={adminInitial}
         adminName={adminName} />
-      </div>
-      
+      </div>      
       {/* Other content */}
-      <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <div className={`main-content ${isSidebarOpen ? 'content-open' : 'content-closed'}`}>
         
         <div className="content">
           <h2>Dashboard</h2>
