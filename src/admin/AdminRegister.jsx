@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
 import './AdminAuth.css'
 import { auth, db } from '../config/Firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 
-const LoginPage = () => {
+const AdminRegister = () => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -38,7 +37,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <form onSubmit={handleSubmit} className='form-container'>
-        <h2>Admin Login</h2>
+        <h2>Admin Register</h2>
 
 
         <input
@@ -64,10 +63,10 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   )
 };
 
-export default LoginPage;
+export default AdminRegister;

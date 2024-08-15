@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-header">
         <Link to="/" className="nav__logo">
-            <img src={logo} alt='logo' width='38' height='38' /><span className="sidebar-text"> Movie Stream </span>
+            <img src={logo} alt='logo' width='38' height='38' /><span className="sidebar-text" style={{ color: 'var(--first-color)' }}> Movie Stream </span>
         </Link>
       </div>
       <nav className='side-nav'>

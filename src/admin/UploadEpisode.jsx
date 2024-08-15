@@ -4,7 +4,6 @@ import { collection, addDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../config/Firebase';
 import { storage } from '../config/Firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { useAuth } from './AuthContext'; // Adjust the path if necessary
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
 import './AdminPage.css';

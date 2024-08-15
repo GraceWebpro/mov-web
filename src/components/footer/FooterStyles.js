@@ -42,7 +42,7 @@ export const Row = styled.div`
     @media (max-width: 1000px) {
         grid-template-columns: repeat(
             auto-fill,
-            minmax(200px, 1fr)
+            minmax(200px, 2fr)
         );
     }
 `;
