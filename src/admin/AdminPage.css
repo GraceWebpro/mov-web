@@ -72,13 +72,13 @@
     background-color: #ccc;
     color: #000;
     width: 100%;
+    margin-right: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 0px;
+    padding-right: 40px;
     height: 60px;
-    top: 0;
-    left: 0;
+    
     border-bottom: 1px solid rgb(158, 158, 158);
     z-index: 1000;
     transition: margin-left 0.3s;
@@ -100,6 +100,7 @@
   .admin-navbar {
     margin-left: 0;
   }
+  
 }
 
 
@@ -130,7 +131,6 @@
     font-size: 18px;
     margin-left: auto; /* Push admin details to the right */
 
-    margin-right: 10px;
     text-transform: uppercase; /* Ensure the letter is uppercase */
 }
 
@@ -144,13 +144,16 @@
     flex-direction: column;
     height: 100vh;
     background-color: #f4f1f8;
+    overflow: hidden;
 }
 
 .main-content {
   flex-grow: 1;
-  padding:20px;
+  padding: 10px;
+  overflow-y: auto;
   margin-left: 60px;
     transition: margin-left 0.3s;
+    box-sizing: border-box;
 }
 
 .main-content.content-closed {
@@ -192,8 +195,15 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-width: 700px) {
+  .form-container {
+    width: 90%;
+  }
+}
 .form-container h2 {
   text-align: center;
+  color: black;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
@@ -207,7 +217,7 @@
 .form-container input, .form-container textarea {
   width: 100%;
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

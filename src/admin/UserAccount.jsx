@@ -66,7 +66,7 @@ const user = auth.currentUser;
       
             <div className="content">
                 <h3>Welcome </h3>
-                <p>Email: {user.email}</p>
+                <p>Email: </p>
                 <form onSubmit={handleSubmit} className='form-container'>
                     <h2>Change Password</h2>
                     <label>Current Password:

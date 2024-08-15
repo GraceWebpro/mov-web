@@ -7,6 +7,8 @@ import './AdminPage.css';
 import { query, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { movieCollectionRef } from '../config/Firestore-collections'
 import { db, auth } from '../config/Firebase'
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 
 
 
@@ -104,16 +106,16 @@ const AdminDashboard = ({ children }) => {
       <div className={`main-content ${isSidebarOpen ? 'content-open' : 'content-closed'}`}>
         
         <div className="content">
-          <h2>Dashboard</h2>
+          <h2 style={{ color: 'black' }}>Dashboard</h2>
           <table>
           <thead>
-          <tr>
-          <th>Movie ID</th>
-          <th>Movie Title</th>
-          <th>Description</th>
-          <th>Episodes</th>
-          <th>Eit Movie</th>
-          <th>Delete Movie</th>
+          <tr style={{ color: 'black' }}>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Desc</th>
+          <th>Ep</th>
+          <th><FaEdit /></th>
+          <th><MdDelete /></th>
           </tr>
           </thead>
           <tbody>

@@ -59,7 +59,7 @@ function App() {
         </Routes>
 
         
-        <Footer />
+        {!isAdminPage && <Footer />}
 
     </div>
   );
