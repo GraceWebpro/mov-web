@@ -73,7 +73,7 @@
     border-radius: 8px;
     justify-content: space-between;
     overflow: hidden;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+    /*box-shadow: 0 2px 2px rgba(0, 0, 0, .2);*/
     box-sizing: border-box;
 }
 .poster {

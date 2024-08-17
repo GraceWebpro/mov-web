@@ -9,7 +9,7 @@ const AdminNavbar = ({ toggleSidebar, isSidebarOpen, adminInitial, adminName }) 
         <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
           <FaBars />
         </button>
-        <h1>Dashboard</h1>
+        <h1>Admin</h1>
       </div>
       <div className="admin-avatar">
         {adminInitial} {/* Display the initial */}

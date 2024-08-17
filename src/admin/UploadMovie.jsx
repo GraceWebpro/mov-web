@@ -1,7 +1,7 @@
 // UploadVideo.js
 import React, { useState } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { addDoc, serverTimestamp } from 'firebase/firestore';
+import { addDoc, doc, serverTimestamp, collection } from 'firebase/firestore';
 import { storage } from '../config/Firebase';
 import { movieCollectionRef } from '../config/Firestore-collections'
 import Sidebar from './Sidebar';
@@ -60,6 +60,7 @@ const UploadMovie = () => {
       const thumbnailURL = await getDownloadURL(thumbnailRef);
 
       try {
+        //const movieRef = doc(movieCollectionRef)
         await addDoc(movieCollectionRef, {
           title,
           description,
