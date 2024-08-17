@@ -61,8 +61,7 @@ const MovieCard = () => {
           <div className="details">
           
             <h3 className="movie-card__title">{movie.title}</h3>
-            <p className="desc">{movie.tags}</p>
-            <p className="desc">{movie.category}</p>
+            <p className="desc">{movie.title} | {movie.category}</p>
 
           
           </div>

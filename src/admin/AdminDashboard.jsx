@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 //import { useAuth } from './AuthContext';
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
+//import AllMovies from './AllMovies';
+
 import './AdminPage.css';
-import { query, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { movieCollectionRef } from '../config/Firestore-collections'
 import { db, auth } from '../config/Firebase'
 import { FaEdit } from 'react-icons/fa';
@@ -22,19 +24,37 @@ const AdminDashboard = ({ children }) => {
   const [editDescription, setEditDescription] = useState('');
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
-    const fetchVideos = async () => {
-      const q = query(movieCollectionRef);
-      const querySnapshot = await getDocs(q);
-      const videoList = [];
-      querySnapshot.forEach((doc) => {
-        videoList.push({ id: doc.id, ...doc.data() });
-      });
-      setVideos(videoList);
+    const fetchMovies = async () => {
+      try {
+        const querySnapshot = await getDocs(movieCollectionRef);
+
+        const movieWithEpisodes = await Promise.all(
+          querySnapshot.docs.map(async(doc) => {
+            const movieData = doc.data();
+
+            const epCollRef = collection(db, 'movies', doc.id, 'episodes');
+            const epSnapshot = await getDocs(epCollRef);
+
+            return {
+              id: doc.id, 
+              ...movieData,
+              episodeCount: epSnapshot.size,
+            };
+          })
+        );
+        
+        setVideos(movieWithEpisodes);
+      } catch (error) {
+        console.error("Error fetching movies: ", error);
+      }
     };
 
-    fetchVideos();
+    fetchMovies();
   }, []);
+
 
   const handleDelete = async (id) => {
     try {
@@ -92,8 +112,10 @@ const AdminDashboard = ({ children }) => {
   const adminInitial = adminName ? adminName[0] : ''; // Extract the first letter for initials
   
   const handleMovieClick = (movieId) => {
-    navigate(`movies/${movieId}`);
+    navigate(`/admin/edit-movie/${movieId}`);
   };
+
+ 
 
   return (
     <div className='admin-page'>
@@ -107,57 +129,33 @@ const AdminDashboard = ({ children }) => {
         
         <div className="content">
           <h2 style={{ color: 'black' }}>Dashboard</h2>
-          <table>
-          <thead>
-          <tr style={{ color: 'black' }}>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Desc</th>
-          <th>Ep</th>
-          <th><FaEdit /></th>
-          <th><MdDelete /></th>
-          </tr>
-          </thead>
-          <tbody>
-          {videos.map((video) => (
-            <tr key={video.id}>
-            <td>{video.id}</td>
-            <td>{video.title}</td>
-            <td>{video.description}</td>
-            <td>{video.eposodes.length}</td> 
-            <td><button onClick={() => handleMovieClick(video.id)}>Edit</button></td>
-            <td><button onClick={() => handleDelete(video.id)} style={{ color: 'red' }}>Delete</button></td>
-            </tr>
-          ))}
-          </tbody>
-          </table>
-          <ul>
-            {videos.map((video) => (
-              <li key={video.id}>
-                <h3>{video.title}</h3>
-                <p>{video.description}</p>
-                <img src={video.thumbnailUrl} alt={`${video.title} thumbnail`} width="200" />
-                
-                <button onClick={() => handleDelete(video.id)}>Delete Video</button>
-                <button onClick={() => handleEdit(video.id)}>
-                  {editingVideoId === video.id ? 'Save' : 'Edit'}
-                </button>
-                {editingVideoId === video.id && (
-                  <form className='form-container'>
-                    <label>
-                      Title:
-                      <input type="text" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
-                    </label>
-                    <label>
-                      Description:
-                      <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} />
-                    </label>
-                  </form>
-                )}
-              </li>
-            ))}
-          </ul>
           
+          <table className='movie-table'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Ep No</th>
+                <th><FaEdit /></th>
+                <th><MdDelete /></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {videos.map((video) => (
+                <tr key={video.id}>
+                  <td>{video.id}</td>
+                  <td>{video.title}</td>
+                  <td>{video.releaseYear}</td>
+                  <td><button onClick={() => handleMovieClick(video.id)} style={{ padding: '5px', height: '30px', border: 'none', cursor: 'pointer', borderRadius: '5px', backgroundColor: 'var(--first-color)', color: '#fff', }}>Edit</button></td>
+                  <td><button onClick={() => handleDelete(video.id)} className='td-btn'>Delete</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+         
+           
         </div>
       </div>
     </div>

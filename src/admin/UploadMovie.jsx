@@ -104,7 +104,7 @@ const UploadMovie = () => {
 
         <label>
           Title:
-          <input type="text" value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} required />
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
         </label>
         <label>
           Description:
@@ -124,7 +124,7 @@ const UploadMovie = () => {
         </label>
         <label>
           Release Year:
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <input type="text" value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} required />
         </label>
         <label>
           Thumbnail Image:

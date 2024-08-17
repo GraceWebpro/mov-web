@@ -217,7 +217,7 @@
 .form-container input, .form-container textarea {
   width: 100%;
   height: 40px;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -232,4 +232,26 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.td-btn {
+  height: 30px;
+  background-color: var(--first-color);
+  color: #fff;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.movie-table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.movie-table th, .movie-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
 }

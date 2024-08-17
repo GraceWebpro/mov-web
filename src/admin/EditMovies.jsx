@@ -82,7 +82,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const handleSelectChange = (e) => {
         const selectedMovieId = e.target.value;
-        const selectedMovie = movies.find((movie) => (doc.id) === selectedMovieId);
+        const selectedMovie = movies.find((movie) => (movie.id) === selectedMovieId);
         setSelectedMovie(selectedMovie);
     }
 
