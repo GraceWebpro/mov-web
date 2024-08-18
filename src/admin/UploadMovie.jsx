@@ -19,6 +19,8 @@ const UploadMovie = () => {
   const [description, setDescription] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
   const [status, setStatus] = useState('');
+  const [category, setCategory] = useState('');
+
   const [tags, setTags] = useState('');
 
 
@@ -66,6 +68,7 @@ const UploadMovie = () => {
           description,
           releaseYear,
           status,
+          category,
           tags: tags.split(',').map(name => name.trim()),
           cast: cast.split(',').map(name => name.trim()),
           thumbnailUrl: thumbnailURL,
@@ -76,6 +79,7 @@ const UploadMovie = () => {
         setDescription('');
         setCast('');
         setTags('');
+        setCategory('');
         setReleaseYear('');
         setStatus('');
         setThumbnailFile(null);
@@ -110,6 +114,10 @@ const UploadMovie = () => {
         <label>
           Description:
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+        </label>
+        <label>
+          Category:
+          <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
         </label>
         <label>
           Tags:
