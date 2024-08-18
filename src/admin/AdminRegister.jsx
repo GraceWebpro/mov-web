@@ -14,18 +14,10 @@ const AdminRegister = () => {
     const registerUser = async (e) => {
       e.preventDefault();
       try {
-        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-          const user = userCredential.user
-          if (user) {
-            setDoc(doc(db, "users", user.uid), {
-                email: user.email,
-                name: user.name,
-                password: user.password
-            });
-        }
+        await createUserWithEmailAndPassword(auth, email, password);
         alert('User registered successfully!');
         navigate('/admin/dashboard'); // Redirect to the dashboard after login
-        });
+        
       } catch (error) {
         console.error('Login failed:', error.message);
         alert('User not registered!');
