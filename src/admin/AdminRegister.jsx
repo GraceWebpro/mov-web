@@ -10,14 +10,14 @@ const AdminRegister = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-  
-    
-    const handleSubmit = async (email, password) => {
+
+    const registerUser = async (e) => {
+      e.preventDefault();
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        const user = auth.currentUser;
-        if (user) {
-            await setDoc(doc(db, "users", user.uid), {
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+          const user = userCredential.user
+          if (user) {
+            setDoc(doc(db, "users", user.uid), {
                 email: user.email,
                 name: user.name,
                 password: user.password
@@ -25,18 +25,20 @@ const AdminRegister = () => {
         }
         alert('User registered successfully!');
         navigate('/admin/dashboard'); // Redirect to the dashboard after login
+        });
       } catch (error) {
         console.error('Login failed:', error.message);
         alert('User not registered!');
       }
-    };
-
+    }
+    
+    
     
   
 
   return (
     <div className="login-page">
-      <form onSubmit={handleSubmit} className='form-container'>
+      <form onSubmit={registerUser} className='form-container'>
         <h2>Admin Register</h2>
 
 
