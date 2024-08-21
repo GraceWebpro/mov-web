@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../config/Firebase'; // Import from the updated firebase setup
 import { useParams } from 'react-router-dom';
-import { doc, collection, getDoc, getDocs } from 'firebase/firestore';
+import { doc, collection, getDoc, getDocs, query, orderBy } from 'firebase/firestore';
 import Image from '../../assets/Dramakey-ad.jpeg';
 import { ref, getStorage, getDownloadURL } from 'firebase/storage';
-
+import CommentSection from '../comment/Comment';
 
 const MovieDetail = () => {
   const { id } = useParams(); // Get the movie ID from the URL
@@ -30,7 +30,8 @@ const MovieDetail = () => {
           setMovie(docSnapshot.data());
 
           const episodesRef = collection(movieDoc, 'episodes');
-          const episodesSnapshot = await getDocs(episodesRef);
+          const q = query(episodesRef, orderBy('episodeNumber', 'asc'));
+          const episodesSnapshot = await getDocs(q);
           const episodeList = episodesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           setEpisodes(episodeList);
         } else {
@@ -83,9 +84,9 @@ const tags = movie.tags || [];
       </div>
       <div className='content'>
       <p className='p-title'>Download Korean {movie.title} ({movie.category})</p>
-      <img src={movie.thumbnailUrl} alt={movie.title} style={{ width: '250px', height: '250px' }} />
+      <img src={movie.thumbnailUrl} alt={movie.title} style={{ width: '250px', height: '320px' }} />
       <div className='flex' style={{ display: 'flex', color: '#000', opacity: '60%'}}>
-       <h4>TAGS : {movie.cast.tags > 0 ? cast.join(', ') : 'No cast information available'}</h4>
+       <h4>TAGS : {movie.tags.length > 0 ? tags.join(', ') : 'No tags information available'}</h4>
       
       </div>
       <h3>Synopsis</h3>
@@ -128,28 +129,18 @@ const tags = movie.tags || [];
         {Object.entries(episodes).map(([number, episode]) => (
           <li key={number}>
             <h3>Episode {episode.episodeNumber}</h3>
-            <button onClick={() => downloadEpisode(number)}>Download</button>
-            <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn'>Download Episode</a>
+            <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn' style={{ marginTop: '10px' }}>Download Episode</a>
           </li>
         ))}
       </ul>
-      <ul>
-        {episodes.map(episode => (
-          <li key={episode.id}>
-            <h3>Episode {episode.episodeNumber}: {episode.title}</h3>
-            <p>{episode.description}</p>
-            <p>Duration: {episode.duration}</p>
-            <p>Air Date: {episode.airDate}</p>
-            <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer">Watch Episode</a>
-          </li>
-        ))}
-      </ul>
+      
 
       <h3 style={{ marginTop: '20px', justifyContent: 'center' }}>Recommended after watching {movie.title} ({movie.category})</h3>
-
+          <CommentSection />
       </div>
     </div>
   );
 };
 
 export default MovieDetail;
+//<button onClick={() => downloadEpisode(number)}>Download</button>

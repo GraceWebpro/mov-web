@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import './Navbar.css'
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import logo from '../../logo.svg';
-import NavSearch from '../home/search/NavSearch';
+import NavSearch from './NavSearch';
 
 
 const Navbar = () => {

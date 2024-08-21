@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from '../home/search/SearchBar';
 import { fetchMovies } from '../home/search/FetchMovies'; // Adjust the import based on your setup
-import "./Search.css"
+//import "./Search.css"
 import { useNavigate } from 'react-router-dom';
 
 
@@ -55,7 +55,7 @@ const NavSearch = () => {
             <li 
               key={movie.id} 
               onClick={() => handleMovieClick(movie.id)} 
-              style={{ color: '#fff', marginLeft: '0px', cursor: 'pointer' }}
+              style={{ color: '#fff', marginLeft: '15px', cursor: 'pointer' }}
             >
               {movie.title}
             </li>
