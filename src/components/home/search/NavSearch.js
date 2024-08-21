@@ -5,7 +5,7 @@ import "./Search.css"
 import { useNavigate } from 'react-router-dom';
 
 
-const Search = () => {
+const NavSearch = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
@@ -55,7 +55,7 @@ const Search = () => {
             <li 
               key={movie.id} 
               onClick={() => handleMovieClick(movie.id)} 
-              style={{ color: '#000', marginLeft: '15px', cursor: 'pointer' }}
+              style={{ color: '#fff', marginLeft: '15px', cursor: 'pointer' }}
             >
               {movie.title}
             </li>
@@ -66,4 +66,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default NavSearch;

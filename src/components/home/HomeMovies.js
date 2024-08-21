@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../movie/MovieCard.css'; // Import a CSS file for styling (optional)
-import { getDocs, orderBy, where, limit } from 'firebase/firestore';
-import { movieCollectionRef } from '../../config/Firestore-collections';
-//import { Link } from "react-router-dom";
+import { getDocs, orderBy, where, query, collection } from 'firebase/firestore';
+//import { movieCollectionRef } from '../../config/Firestore-collections';
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { db } from '../../config/Firebase'
 
 
 const MovieCard = () => {
@@ -13,7 +14,8 @@ const MovieCard = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const moviesSnapshot = await getDocs(movieCollectionRef, where('category', '==', 'series'), orderBy('timestamp', 'desc'), limit(2));
+        const q = query(collection(db, 'movies'), where('category', '==', 'Nollywood'), orderBy('createdAt', 'desc'));
+        const moviesSnapshot = await getDocs(q);
         const moviesList = moviesSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -34,24 +36,24 @@ const MovieCard = () => {
 
   return (
     <div>
-                <h2 style={{ color: 'black', marginTop: '30px', marginLeft: '10px'}}>New Drama Uploads</h2>
+      <h2 style={{ color: 'black', marginTop: '30px', marginLeft: '10px'}}>New Nollywood Uploads</h2>
 
-    <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
-      {movies.map((movie) => (
-        <div key={movie.id} onClick={() => handleMovieClick(movie.id)} className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '100px', }}>
-          <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', borderRadius: '8px' }} />
-          <div className="details">
-          
-            <h3 className="movie-card__title">{movie.title}</h3>
-            <p className="desc">{movie.description}</p>
-            <p className="desc">{movie.category}</p>
+      <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
+        {movies.map((movie) => (
+          <div key={movie.id} onClick={() => handleMovieClick(movie.id)} className="card" style={{ border: '1px solid #ccc', minWidth: '100px', }}>
+            <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', height: '320px' }} />
+            <div className="details">
+            
+            <p className="desc">{movie.title} ({movie.status}) | {movie.category}</p>
 
-          
+            
+            </div>
           </div>
-        </div>
-      ))}
-      
-    </div>
+        ))}
+        
+      </div>
+    <Link to='nollywood'><button className='card-btn' style={{ textAlign: 'center', justifyContent: 'center', marginTop: '20px' }} >View All Nolyywood Movies</button></Link>
+
     </div>
   );
 };

@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import HomeHeader from './components/home/HomeHeader';
 import MovieDetail from './components/movie/MovieDetail';
 //import About from './components/about/About';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
+//import Footer from './components/footer/Footer';
 import AdminAuth from './admin/AdminAuth';
 import AdminRegister from './admin/AdminRegister';
-
-//import { AuthProvider } from './admin/AuthContext';
-//import PrivateRoute from './admin/PrivateRoute';
-//import { onAuthStateChanged } from 'firebase/auth';
-//import { Navigate } from 'react-router-dom';
 import AdminDashboard from './admin/AdminDashboard';
 import UploadMovie from './admin/UploadMovie';
 import UploadEpisode from './admin/UploadEpisode';
 import EditMovie from './admin/EditMovies';
 import UserAccount from './admin/UserAccount';
-//import { AuthWrapper } from './admin/AuthWrapper';
 import {auth} from './config/Firebase';
-
-
+import ScrollToTop from './components/ScrollToTop';
+import Drama from './components/movie/Drama';
+import Nollywood from './components/movie/Nollywood';
 
 function App() {
   const user = auth.currentUser;
@@ -42,6 +37,8 @@ function App() {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<HomeHeader />} />
+          <Route path='/k-drama' element={<Drama />} />
+          <Route path='/nollywood' element={<Nollywood />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="movies/:id" element={<MovieDetail />} />
           
@@ -59,8 +56,7 @@ function App() {
         </Routes>
 
         
-        {!isAdminPage && <Footer />}
-
+    <ScrollToTop />
     </div>
   );
 }

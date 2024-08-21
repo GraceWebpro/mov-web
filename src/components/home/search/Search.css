@@ -7,6 +7,15 @@
 }
 .search-bar {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    width: 100%;
+    padding: 0 0px;
+}
+
+.nav-search-bar {
+    display: flex;
     margin: 10px 10px;
     align-items: center;
     justify-content: center;

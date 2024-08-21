@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 //import { NavLink } from 'react-router-dom'
 import { Link } from "react-router-dom";
 //import { RiCloseLine } from "react-icons/ri";
-import { RiArrowDropDownLine } from "react-icons/ri";
+//import { RiArrowDropDownLine } from "react-icons/ri";
 import './Navbar.css'
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import logo from '../../logo.svg';
+import NavSearch from '../home/search/NavSearch';
 
 
 const Navbar = () => {
@@ -36,16 +37,16 @@ const Navbar = () => {
              </Link>
            </li>
            <li className="nav__item">
-             <Link to="about" className="nav__link">
-               Chinese Drama
+             <Link to="k-drama" className="nav__link">
+               Korea Drama 
              </Link>
            </li>
            <li className="nav__item">
              <Link
-               to="k-drama"
+               to="nollywood"
                className="nav__link"
              >
-               K-Drama
+               Nollywood 
              </Link>
            </li>
            <li className="nav__item">
@@ -53,30 +54,10 @@ const Navbar = () => {
                to="tv-series"
                className="nav__link"
              >
-               TV Series
+               How to download
              </Link>
            </li>
-           <li className="nav__item">
-             <Link
-               to="movies"
-               className="nav__link"
-             >
-               Movies <RiArrowDropDownLine />
-             </Link>
-           </li>
-           <li className="nav__item">
-             <Link
-               to="genre"
-               className="nav__link"
-             >
-               Genre <RiArrowDropDownLine />
-             </Link>
-           </li>
-           <li className="nav__item">
-             <Link to="/get-started" className="nav__link nav__cta">
-               Get Started
-             </Link>
-           </li>
+           <NavSearch />
           </ul>
         </div>
       </div>
