@@ -29,9 +29,12 @@ const MovieDetail = () => {
     };
 
   const handleDownloadClick = (episodeNumber) => {
-    const formatedTitle = movie.title.toLowerCase().split('').join('-');
-    navigate(`/movie/${formatedTitle}/${episodeNumber}`);
+    const formatedTitle = movie.title.toLowerCase();
+    navigate(`/movie/${movie.title}/episode${episodeNumber}`);
   }
+
+  
+
 
   useEffect(() => {
     const fetchMovie = async () => {
