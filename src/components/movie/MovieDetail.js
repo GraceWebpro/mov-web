@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../config/Firebase'; // Import from the updated firebase setup
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { doc, collection, getDoc, getDocs, query, orderBy } from 'firebase/firestore';
 import Image from '../../assets/Dramakey-ad.jpeg';
 import { ref, getStorage, getDownloadURL } from 'firebase/storage';
 import CommentSection from '../comment/Comment';
+import './MovieCard.css'
+import { TbLetterI, TbLetterISmall } from 'react-icons/tb';
+import { AiFillQuestionCircle } from 'react-icons/ai';
+import Search from '../home/search/Search'
+import { fetchSimilarMovies } from './SimilarMovie';
+import { MdArrowForwardIos } from 'react-icons/md';
+
 
 const MovieDetail = () => {
   const { id } = useParams(); // Get the movie ID from the URL
   const [movie, setMovie] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [similarMovies, setSimilarMovies] = useState([]);
   const storage = getStorage();
 
   const [showNotice, setShowNotice] = useState(true);
+  const navigate = useNavigate();
 
     const handleCancel = () => {
         setShowNotice(false);
     };
+
+  const handleDownloadClick = (episodeNumber) => {
+    const formatedTitle = movie.title.toLowerCase().split('').join('-');
+    navigate(`/movie/${formatedTitle}/${episodeNumber}`);
+  }
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -27,7 +41,11 @@ const MovieDetail = () => {
         const docSnapshot = await getDoc(movieDoc); // Fetch the document
         
         if (docSnapshot.exists()) {
-          setMovie(docSnapshot.data());
+          const movieData = docSnapshot.data();
+          setMovie(movieData);
+
+          const movies = await fetchSimilarMovies(movieData.tags, id);
+          setSimilarMovies(movies);
 
           const episodesRef = collection(movieDoc, 'episodes');
           const q = query(episodesRef, orderBy('episodeNumber', 'asc'));
@@ -113,7 +131,9 @@ const tags = movie.tags || [];
       </div>
 
       <h3 style={{ marginTop: '20px', justifyContent: 'center' }}>Download links for {movie.title} ({movie.category})</h3>
-
+      
+      <Link to='/how-to-download'><button className='card-btn'><AiFillQuestionCircle /> How To Download</button></Link>
+      
       <h3>Episodes</h3>
 
       {showNotice && (
@@ -129,15 +149,44 @@ const tags = movie.tags || [];
         {Object.entries(episodes).map(([number, episode]) => (
           <li key={number}>
             <h3>Episode {episode.episodeNumber}</h3>
+            <button onClick={() => handleDownloadClick(episode.episodeNumber)} className='card-btn'>Download Ep</button>
             <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn' style={{ marginTop: '10px' }}>Download Episode</a>
           </li>
         ))}
       </ul>
       
-
-      <h3 style={{ marginTop: '20px', justifyContent: 'center' }}>Recommended after watching {movie.title} ({movie.category})</h3>
-          <CommentSection />
+      <div>
+        <h3 style={{ marginTop: '20px', justifyContent: 'center' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
+        <div>
+          {similarMovies.length > 0 ? (
+            <ul>
+              {similarMovies.map((similarMovie) => (
+                <Link to={`/movies/${similarMovie.id}`}>
+                  <li key={similarMovie.id} >
+                    <img src={similarMovie.thumbnailUrl} alt={similarMovie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
+                    <h4>{similarMovie.title}</h4>
+                    <span>{similarMovie.releaseYear}</span>
+                  
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          ) : (
+            <p>No similar movies found.</p>
+          )}
+        </div>
       </div>
+
+        <CommentSection />
+      </div>
+
+      <Search />
+
+      <div className="disclaimer-section">
+        <p><TbLetterISmall /><TbLetterI /> Disclaimer</p>
+        <p>Streammovies.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
+      </div>
+
     </div>
   );
 };

@@ -17,6 +17,8 @@ import {auth} from './config/Firebase';
 import ScrollToTop from './components/ScrollToTop';
 import Drama from './components/movie/Drama';
 import Nollywood from './components/movie/Nollywood';
+import HowTo from './components/movie/HowTo'
+import DownloadLink from './components/movie/DownloadLink'
 
 function App() {
   const user = auth.currentUser;
@@ -39,8 +41,10 @@ function App() {
           <Route path="/" element={<HomeHeader />} />
           <Route path='/k-drama' element={<Drama />} />
           <Route path='/nollywood' element={<Nollywood />} />
+          <Route path='/how-to-download' element={<HowTo />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="movies/:id" element={<MovieDetail />} />
+          <Route path="movies/:title/:episodeNumber" element={<DownloadLink />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={user ? <Navigate to='/admin/dashboard' /> : <Navigate to='/admin/login' />} />
@@ -48,6 +52,7 @@ function App() {
           <Route path="/admin/upload-episode" element={<UploadEpisode />} />
           <Route path="/admin/edit-movie" element={<EditMovie />} />
           <Route path="/admin/account" element={<UserAccount />} />
+          <Route path="/admin/edit-movie/:id" element={<EditMovie />} />
 
           <Route path="/admin/login" element={<AdminAuth />} />
           <Route path="/admin/signup" element={<AdminRegister />} />

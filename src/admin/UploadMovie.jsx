@@ -13,7 +13,7 @@ import { auth } from '../config/Firebase'
 
 const UploadMovie = () => {
   const [thumbnailFile, setThumbnailFile] = useState(null);
-  const [movieUrl, setMovieUrl] = useState('');
+  //const [movieUrl, setMovieUrl] = useState('');
   const [title, setTitle] = useState('');
   const [cast, setCast] = useState('');
   const [description, setDescription] = useState('');
@@ -141,6 +141,8 @@ const UploadMovie = () => {
         </label>
       
         <br />
+        {uploadProgress > 0 && <p>Upload Progress: {Math.round(uploadProgress)}%</p>}
+
         <button type="submit">Upload Video</button>
       </form>
       {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}

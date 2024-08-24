@@ -1,20 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import './Comment.css'
+import { MdArrowForwardIos } from 'react-icons/md';
+import { collection, addDoc, serverTimestamp, getDocs, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db } from '../../config/Firebase';
 
 const CommentSection = () => {
     const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState('');
+    const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [saveDetails, setSSaveDetails] = useState(false);
+    const [saveDetails, setSaveDetails] = useState(false);
+    const [replyingTo, setReplyingTo] = useState(null);
+    const [reply, setReply] = useState('');
+    const [showReplyForm, setShowReplyForm] = useState(null);
+
+  
 
     useEffect(() => {
-        const savedUsername = localStorage.getItem('username');
-        const savedEmail = localStorage.getItem('email');
+        const fetchComments = async () => {
+          
+          const querySnapshot = await getDocs(collection(db, 'comments'));
 
-        if (savedUsername) setUsername(savedUsername);
-        if (savedEmail) setEmail(savedEmail);
-    }, [])
+          const commentsArray = [];
+          querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setComments(commentsArray);
+        };
+    
+        fetchComments();
+      }, []);
+    
+
     const EmailChange = (e) => {
         setEmail(e.target.value);
     };
@@ -24,41 +42,135 @@ const CommentSection = () => {
     };
 
     const handleInputChange = (e) => {
-        setNewComment(e.target.value);
+        setComment(e.target.value);
     };
 
-    const handleAddComment = () => {
-        if (newComment.trim() !== '') {
-            setComments([...comments, { text: newComment, date: new Date() }]);
-            setNewComment('');
-            if (saveDetails) {
-                localStorage.setItem('username', username);
-                localStorage.setItem('email', email);
-            } else {
-                localStorage.removeItem('username');
-                localStorage.removeItem('email');
-            }
-        }
+    const handleReplyChange = (e) => {
+        setReply(e.target.value);
     };
+
+
+    const handleCheckboxChange = (e) => {
+        setSaveDetails(e.target.checked);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const newComment = {
+            username,
+            email,
+            comment,
+            replies: [],
+            createdAt: serverTimestamp(),
+        };
+
+        try {
+            const docRef = await addDoc(collection(db, 'comments'), newComment);
+            setComments([...comments, { id: docRef.id, ...newComment }]);
+        } catch (error) {
+            console.error('Error adding comment: ', error);
+        }
+
+        setComment('');
+    };
+
+    const handleReplySubmit = async (e, commentId) => {
+        e.preventDefault();
+
+        const commentRef = doc(db, 'comments', commentId);
+
+        try {
+
+            await updateDoc(commentRef, {
+                replies: arrayUnion({ username, email, reply }),
+            });
+            setComments(comments.map((c) => {
+                if (c.id === commentId) {
+                    return {
+                        ...c,
+                        replies: [...c.replies, { username,email, reply }],
+                    };
+                }
+
+                return c;
+            }));
+        } catch (error) {
+            console.error('Error adding comment: ', error);
+        }
+
+        setReply('');
+        setReplyingTo(null);
+        setShowReplyForm(null);
+
+    };
+
+    const handleCancelReply = () => {
+        setReplyingTo(null);
+        setReply('');
+    };
+
+    const handleReplyClick = (commentId) => {
+        setReplyingTo(commentId);
+    };
+
+
 
     return (
         <div className='comment-section'>
-            <h2>Comments</h2>
-            <div className='comment-input'>
-            <input type='text' value={username} onChange={usernameChange} placeholder='Write a comment...' />
-            <input type='email' value={email} onChange={EmailChange} placeholder='Write a comment...' />
+            <h4 style={{ color: 'black', opacity: '70%' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>THIS MOVIE HAS {comments?.length || 0} COMMENT{comments?.length !== 1 ? 'S' : ''}</h4>
+            <ul className='comment-list'>
+                {comments.map((c) => (
+                    <div key={c.id} className='comment'>
+                        <p>
+                            <strong>{c.username}</strong><span>{c.date}</span>
+                            <div>
+                                <button onClick={() => handleReplyClick(c.id)} className='reply-btn'>REPLY</button>
+                                {showReplyForm && replyingTo === c.id && (
+                                    <div>
+                                        <div style={{ display: 'flex' }}>
+                                            <h3>Reply to {c.username}</h3>
+                                            <button onClick={handleCancelReply} className='cancel-btn'>Cancel</button>
 
-                <textarea value={newComment} onChange={handleInputChange} placeholder='Write a comment...' />
-                <button onClick={handleAddComment}>Add Comment</button>
-            </div>
-            <div className='comment-list'>
-                {comments.map((comment, index) => (
-                    <div key={index} className='comment'>
-                        <p>{comment.text}</p>
-                        <span>{comment.date.toLocaleString()}</span>
+                                        </div>
+                                        <textarea value={reply} onChange={handleReplyChange} placeholder='Your response here...' required />
+                                        <input type='text' value={username} onChange={usernameChange} placeholder='Name (required)' />
+                                        <input type='email' value={email} onChange={EmailChange} placeholder='Email (required)' />
+
+                                        <button onClick={(event) => handleReplySubmit(event, c.id)}>Submit</button>
+
+                                    </div>
+                                )}
+                            </div>
+                        </p>
+                        <p>{c.comment}</p>
+                        {c.replies.length > 0 && (
+                            <ul>
+                                {c.replies.map((r, index) => (
+                                    <li key={index}>
+                                    <strong>{r.username}</strong>
+                                    <p>{r.reply}</p>
+                                </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
                 ))}
-            </div>
+            </ul>
+           {!showReplyForm && (
+                <form className='comment-container' onSubmit={handleSubmit}>
+                <input type='text' value={username} onChange={usernameChange} placeholder='Name (required)' />
+                <input type='email' value={email} onChange={EmailChange} placeholder='Email (required)' />
+
+                <textarea value={comment} onChange={handleInputChange} placeholder='Write a comment...' />
+                <label>
+                    <input type='checkbox' checked={saveDetails} onChange={handleCheckboxChange} className='checkbox' />
+                    Save my details for next time
+                </label>
+                <button type='submit'>Add Comment</button>
+            </form>
+           )}
+            
         </div>
     )
 };

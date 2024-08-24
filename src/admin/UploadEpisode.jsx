@@ -153,9 +153,10 @@ const EpisodeUpload = () => {
                 <input type="date" value={airDate} onChange={(e) => setAirDate(e.target.value)} required />
               </label>
               <br />
+              {uploadProgress > 0 && <p>Upload Progress: {Math.round(uploadProgress)}%</p>}
+
               <button type="submit">Add Episode</button>
             </form>
-            {uploadProgress > 0 && <p>Upload Progress: {Math.round(uploadProgress)}%</p>}
           </div>
         </div>
     </div>

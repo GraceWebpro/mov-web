@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 //import { useAuth } from './AuthContext';
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
@@ -147,7 +147,7 @@ const AdminDashboard = ({ children }) => {
                   <td>{video.id}</td>
                   <td>{video.title}</td>
                   <td>{video.releaseYear}</td>
-                  <td><button onClick={() => handleMovieClick(video.id)} style={{ padding: '5px', height: '30px', border: 'none', cursor: 'pointer', borderRadius: '5px', backgroundColor: 'var(--first-color)', color: '#fff', }}>Edit</button></td>
+                  <td><Link to={`/admin/edit-movie/${video.id}`}><button  style={{ padding: '5px', height: '30px', border: 'none', cursor: 'pointer', borderRadius: '5px', backgroundColor: 'var(--first-color)', color: '#fff', }}>Edit</button></Link></td>
                   <td><button onClick={() => handleDelete(video.id)} className='td-btn'>Delete</button></td>
                 </tr>
               ))}

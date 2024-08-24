@@ -51,7 +51,7 @@ const Navbar = () => {
            </li>
            <li className="nav__item">
              <Link
-               to="tv-series"
+               to="how-to-download"
                className="nav__link"
              >
                How to download
