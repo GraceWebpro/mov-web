@@ -163,8 +163,9 @@ const CommentSection = () => {
                 <input type='email' value={email} onChange={EmailChange} placeholder='Email (required)' />
 
                 <textarea value={comment} onChange={handleInputChange} placeholder='Write a comment...' />
-                <label>
+                <label className='custom-checkbox'>
                     <input type='checkbox' checked={saveDetails} onChange={handleCheckboxChange} className='checkbox' />
+                    <span className='checkmark'></span>
                     Save my details for next time
                 </label>
                 <button type='submit'>Add Comment</button>

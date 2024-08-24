@@ -156,17 +156,21 @@ const tags = movie.tags || [];
       </ul>
       
       <div>
-        <h3 style={{ marginTop: '20px', justifyContent: 'center' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
+        <h3 style={{ marginTop: '40px', opacity: '80%', justifyContent: 'center' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
         <div>
           {similarMovies.length > 0 ? (
-            <ul>
+            <ul className='wrapper'>
               {similarMovies.map((similarMovie) => (
                 <Link to={`/movies/${similarMovie.id}`}>
-                  <li key={similarMovie.id} >
+                  <li key={similarMovie.id} className='card'>
                     <img src={similarMovie.thumbnailUrl} alt={similarMovie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
-                    <h4>{similarMovie.title}</h4>
-                    <span>{similarMovie.releaseYear}</span>
-                  
+                    
+                    <div className="details">
+          
+                      <p className="desc">{similarMovie.title} ({similarMovie.status}) | {similarMovie.category}</p>
+
+                    
+                    </div>
                   </li>
                 </Link>
               ))}
