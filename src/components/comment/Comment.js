@@ -14,7 +14,26 @@ const CommentSection = () => {
     const [reply, setReply] = useState('');
     const [showReplyForm, setShowReplyForm] = useState(null);
 
-  
+    useEffect(() => {
+        if (saveDetails) {
+            localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
+
+        }
+    }, [saveDetails, username, email]);
+
+    useEffect(() => {
+
+            const savedUsername = localStorage.getItem('username', username);
+            const savedEmail = localStorage.getItem('email', email);
+            if (savedUsername && savedEmail) {
+                setUsername(savedUsername);
+                setEmail(savedEmail);
+                setSaveDetails(true);
+            }
+   
+    }, [saveDetails, username, email]);
+
 
     useEffect(() => {
         const fetchComments = async () => {
