@@ -194,6 +194,10 @@ const tags = movie.tags || [];
         <p>Streammovies.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
       </div>
 
+      <div style={{ height: '100px', backgroundColor: 'black' }}>
+
+      </div>
+
     </div>
   );
 };
