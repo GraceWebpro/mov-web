@@ -98,7 +98,7 @@ video {
   
 }
 
-.cancel-btn {
+.notice-section .cancel-btn {
   background: none;
   border: none;
   font-size: 1.2rem;
@@ -107,7 +107,7 @@ video {
   margin-top: -100px;
 }
 
-.left {
+.notice-section .left {
   display: flex;
   flex-direction: column;
   justify-content: left;

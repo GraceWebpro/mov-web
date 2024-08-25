@@ -81,6 +81,7 @@
     box-sizing: border-box;*/
     margin: 10px;
     width: 230px;
+    height: 280px;
 
 }
 .poster {
@@ -377,7 +378,7 @@
     margin-top: 20px;
 }
 
-.cont-p {
+.content-section p {
     color: #000;
     opacity: 60%;
 }

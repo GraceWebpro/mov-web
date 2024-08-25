@@ -15,10 +15,22 @@ const EpDownload = () => {
     const epDownload = async () => {
        // const { title, episodeNumber } = useParams();
        if(videoUrl) {
+        try {
+
+        const response = await fetch(videoUrl);
+        const blob = await response.blob();
+
         const a = document.createElement('a');
-        a.href = videoUrl;
+        a.href = URL.createObjectURL(blob);
         a.download = videoUrl.split('/').pop();
+        document.body.appendChild(a);
         a.click();
+        URL.revokeObjectURL(a.href);
+
+
+        } catch (error) {
+            alert('Download failed');
+        }
         
     } else {
         alert('No video url available');
