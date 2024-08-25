@@ -65,6 +65,8 @@ const EpDownload = () => {
         <div className='download-page'>
             <h3>Hello</h3>
             <h3>{title} - Episode {episodeNumber}</h3>
+            <a href={videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn' style={{ marginTop: '10px' }}>Download Episode</a>
+
             <h3>{title} - Episode {episodeNumber}</h3>
            {loading && <p>Loading episode details...</p>}
            {!videoUrl && <p>No episode found.</p>}
