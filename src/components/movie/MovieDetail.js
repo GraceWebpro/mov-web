@@ -153,7 +153,7 @@ const tags = movie.tags || [];
             <h3>Episode {episode.episodeNumber}</h3>
             <button onClick={() => handleMovieClick(movie.id)} className='card-btn'>Download Ep</button>
             <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn' style={{ marginTop: '10px' }}>Download Episode</a>
-            <Link to={`/movies/${movie.title}/episode/${episode.episodeNumber}`}><button>Download</button></Link>
+            <Link to={`/movie/${movie.title}/episode/${episode.episodeNumber}?videoUrl=${encodeURIComponent(episode.videoUrl)}`}><button>Download</button></Link>
           </li>
         ))}
       </ul>

@@ -44,7 +44,7 @@ function App() {
           <Route path='/how-to-download' element={<HowTo />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="movies/:id" element={<MovieDetail />} />
-          <Route path="/movies/:title/episode/:episodeNumber" element={<EpDownload />} />
+          <Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={user ? <Navigate to='/admin/dashboard' /> : <Navigate to='/admin/login' />} />
