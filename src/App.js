@@ -18,7 +18,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Drama from './components/movie/Drama';
 import Nollywood from './components/movie/Nollywood';
 import HowTo from './components/movie/HowTo'
-import DownloadLink from './components/movie/DownloadLink'
+import EpDownload from './components/movie/EpDownload'
 
 function App() {
   const user = auth.currentUser;
@@ -44,7 +44,7 @@ function App() {
           <Route path='/how-to-download' element={<HowTo />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="movies/:id" element={<MovieDetail />} />
-          <Route path="movies/:title/episode:episodeNumber" element={<DownloadLink />} />
+          <Route path="/movies/:title/episode/:episodeNumber" element={<EpDownload />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={user ? <Navigate to='/admin/dashboard' /> : <Navigate to='/admin/login' />} />

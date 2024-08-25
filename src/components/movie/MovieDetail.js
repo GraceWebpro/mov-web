@@ -28,11 +28,10 @@ const MovieDetail = () => {
         setShowNotice(false);
     };
 
-  const handleDownloadClick = (episodeNumber) => {
-    const formatedTitle = movie.title.toLowerCase();
-    navigate(`/movie/${movie.title}/episode${episodeNumber}`);
-  }
-
+    const handleMovieClick = (movieId) => {
+      navigate(`movies/${movieId}/episode`);
+    };
+  
   
 
 
@@ -152,8 +151,9 @@ const tags = movie.tags || [];
         {Object.entries(episodes).map(([number, episode]) => (
           <li key={number}>
             <h3>Episode {episode.episodeNumber}</h3>
-            <button onClick={() => handleDownloadClick(episode.episodeNumber)} className='card-btn'>Download Ep</button>
+            <button onClick={() => handleMovieClick(movie.id)} className='card-btn'>Download Ep</button>
             <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn' style={{ marginTop: '10px' }}>Download Episode</a>
+            <Link to={`/movies/${movie.title}/episode/${episode.episodeNumber}`}><button>Download</button></Link>
           </li>
         ))}
       </ul>
