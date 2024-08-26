@@ -14,7 +14,7 @@ function HomeHeader({ user, selected }) {
         <div className='HomeHeader'>
             <Hero />
             <h3 className='heading'>Search for what to download here</h3>
-            <Search />
+            <Search style={{ padding: '0 15px' }}/>
             <HomeDrama />
             <HomeMovies />
 
