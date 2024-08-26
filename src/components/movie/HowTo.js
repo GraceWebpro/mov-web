@@ -16,7 +16,7 @@ const HowTo = () => {
 
             <div style={{ color: '#000', marginTop: '20px' }}>
                 <h4>Step One</h4>
-                <p>Visit SREAMMOVIES.COM (Since you are here I guess you made it through step one )</p>
+                <p>Visit MOVIESSTREAM.COM (Since you are here I guess you made it through step one )</p>
             </div>
 
             <div style={{ color: '#000', marginTop: '20px' }}>
