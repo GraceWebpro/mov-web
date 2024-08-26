@@ -45,6 +45,7 @@ const CommentSection = () => {
          querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
+            replies: doc.data().replies || [],
           }));
           setComments(data);
           } catch (error) {
