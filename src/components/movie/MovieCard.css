@@ -14,6 +14,15 @@
     position: relative;
   }*/
 
+  .center-detail {
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
   .movie-detail {
       align-items: center;
       justify-content: center;
@@ -370,6 +379,8 @@
 
 .content {
     padding: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .content h3 {
@@ -382,10 +393,11 @@
     opacity: 60%;
 }
 
-.p-title {
+.content .p-title {
     font-size: 15px;
     color: #000;
-    opacity: 80%;
+    opacity: 90%;
+    align-self: center;
 }
 
 .content img {
@@ -394,6 +406,7 @@
 
 .disclaimer-section {
     display: block;
+    margin-top: 30px;
 }
 
 .notice-section {
@@ -421,7 +434,13 @@
     font-size: 1.2rem;
     cursor: pointer;
     padding: 0 10px;
-    margin-top: -100px;
+    margin-top: -80px;
+    color: white;
+  }
+
+  .cont-p {
+      color: #000;
+      font-size: 15px;
   }
 
   @media (max-width: 576px) {

@@ -95,94 +95,95 @@ const tags = movie.tags || [];
 
 
   return (
-    <div className='hero'>
+    <div className='center' style={{ paddingLeft: '10px', paddingRight: '10px'}}>
       <div className='hero-sec'>
         <div className="another-image">
           <img src={Image} alt="ano" className="image" />
           <p style={{ color: "black", opacity: '0%'}}>...</p>
         </div>
       </div>
-      <div className='content'>
-      <p className='p-title'>Download Korean {movie.title} ({movie.category})</p>
-      <img src={movie.thumbnailUrl} alt={movie.title} style={{ width: '250px', height: '320px' }} />
-      <div className='flex' style={{ display: 'flex', color: '#000', opacity: '60%'}}>
-       <h4>TAGS : {movie.tags.length > 0 ? tags.join(', ') : 'No tags information available'}</h4>
-      
-      </div>
-      <h3>Synopsis</h3>
-      <p className='cont-p'>{movie.description}</p>
-      <div className='flex' style={{ display: 'flex', color: '#000'}}>
-       <h3>Cast : {movie.cast.length > 0 ? cast.join(', ') : 'No cast information available'}</h3>
-      
-      </div>
-
-
-      <div className='flex' style={{ display: 'flex', color: '#000'}}>
-        <h3>Status : ongoing</h3>
-      </div>
-
-      <div className='flex' style={{ display: 'flex', color: '#000'}}>
-        <h3>Year : 2024</h3>
-      </div>
-
-      <div className="notice-section">
-        <div className='left'>
-          <p style={{ fontSize: '15px', fontWeight: '600'}}>Download Size</p>
-          <p style={{ fontSize: '12px', marginTop: '10px' }}>These videos are around 130 MB</p>
+      <div className='content' style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
+        <p className='p-title'>Download Korean {movie.title} ({movie.category})</p>
+        <img src={movie.thumbnailUrl} alt={movie.title} style={{ width: '250px', height: '320px' }} />
+        <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000', alignSelf: 'flex-start' }}>
+          <h4>TAGS : {movie.tags.length > 0 ? tags.join(', ') : 'No tags information available'}</h4>
+        
         </div>
-      </div>
 
-      <h3 style={{ marginTop: '20px', justifyContent: 'center' }}>Download links for {movie.title} ({movie.category})</h3>
-      
-      <Link to='/how-to-download'><button className='card-btn'><AiFillQuestionCircle /> How To Download</button></Link>
-      
-      <h3>Episodes</h3>
+        <div style={{ alignSelf: 'flex-start' }}>
+          <h3>Synopsis</h3>
+          <p className='cont-p'>{movie.description}</p>
+        </div>
+        <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000'}}>
+          <h3>Cast : {movie.cast.length > 0 ? cast.join(', ') : 'No cast information available'}</h3>
+        
+        </div>
 
-      {showNotice && (
-          <div className="notice-section">
-            <div className='left'>
-              <p>Notice:</p>
-              <p>Video is encoded in x265 and it may not play on some phones without VLC or MX video player. It might not play on some TVs.</p>
-            </div>
-            <button onClick={handleCancel} className="cancel-btn">x</button>
+
+        <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000'}}>
+          <h3>Status : ongoing</h3>
+        </div>
+
+        <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000'}}>
+          <h3>Year : 2024</h3>
+        </div>
+
+        <div className="notice-section">
+          <div className='left'>
+            <p style={{ fontSize: '15px', fontWeight: '600'}}>Download Size</p>
+            <p style={{ fontSize: '12px', marginTop: '10px' }}>These videos are around 130 MB</p>
           </div>
-        )}
-      <ul>
-        {Object.entries(episodes).map(([number, episode]) => (
-          <li key={number}>
-            <h3>Episode {episode.episodeNumber}</h3>
-            <button onClick={() => handleMovieClick(movie.id)} className='card-btn'>Download Ep</button>
-            <a href={episode.videoUrl} target="_blank" rel="noopener noreferrer" className='card-btn' style={{ marginTop: '10px' }}>Download Episode</a>
-            <Link to={`/movie/${movie.title}/episode/${episode.episodeNumber}?videoUrl=${encodeURIComponent(episode.videoUrl)}`}><button>Download</button></Link>
-          </li>
-        ))}
-      </ul>
-      
-      <div>
-        <h3 style={{ marginTop: '40px', opacity: '80%', justifyContent: 'center' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
-        <div>
-          {similarMovies.length > 0 ? (
-            <ul className='wrapper'>
-              {similarMovies.map((similarMovie) => (
-                <Link to={`/movies/${similarMovie.id}`}>
-                  <li key={similarMovie.id} className='card'>
-                    <img src={similarMovie.thumbnailUrl} alt={similarMovie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
-                    
-                    <div className="details">
-          
-                      <p className="desc">{similarMovie.title} ({similarMovie.status}) | {similarMovie.category}</p>
-
-                    
-                    </div>
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          ) : (
-            <p>No similar movies found.</p>
-          )}
         </div>
-      </div>
+
+        <h3 style={{ marginTop: '20px', justifyContent: 'center' }}>Download links for {movie.title} ({movie.category})</h3>
+      
+        <Link to='/how-to-download' style={{ alignSelf: 'flex-start', marginTop: '30px' }}><button className='card-btn'><AiFillQuestionCircle /> How To Download</button></Link>
+      
+        <h3 style={{ alignSelf: 'flex-start' }}>Episodes</h3>
+
+        {showNotice && (
+            <div className="notice-section">
+              <div className='left'>
+                <p>Notice:</p>
+                <p>Video is encoded in x265 and it may not play on some phones without VLC or MX video player. It might not play on some TVs.</p>
+              </div>
+              <button onClick={handleCancel} className="cancel-btn">x</button>
+            </div>
+          )}
+        <ul style={{ alignSelf: 'flex-start' }}>
+          {Object.entries(episodes).map(([number, episode]) => (
+            <li key={number}>
+              <h3>Episode {episode.episodeNumber}</h3>
+               <Link to={`/movie/${movie.title}/episode/${episode.episodeNumber}?videoUrl=${encodeURIComponent(episode.videoUrl)}`} ><button className='card-btn' style={{ marginTop: '10px'}}>Download Episode</button></Link>
+            </li>
+          ))}
+        </ul>
+      
+        <div style={{ alignSelf: 'flex-start', marginTop: '20px' }}>
+          <h3 style={{ fontSize: '18px', opacity: '90%' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
+          <div style={{ alignSelf: 'flex-start' }}>
+            {similarMovies.length > 0 ? (
+              <ul className='wrapper'>
+                {similarMovies.map((similarMovie) => (
+                  <Link to={`/movies/${similarMovie.id}`}>
+                    <li key={similarMovie.id} className='card'>
+                      <img src={similarMovie.thumbnailUrl} alt={similarMovie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
+                      
+                      <div className="details">
+            
+                        <p className="desc">{similarMovie.title} ({similarMovie.status}) | {similarMovie.category}</p>
+
+                      
+                      </div>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            ) : (
+              <p>No similar movies found.</p>
+            )}
+          </div>
+        </div>
 
         <CommentSection />
       </div>
@@ -190,14 +191,13 @@ const tags = movie.tags || [];
       <Search />
 
       <div className="disclaimer-section">
-        <p><TbLetterISmall /><TbLetterI /> Disclaimer</p>
-        <p>Streammovies.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
+        <p style={{ display: 'flex', color: 'var(--first-color)', fontWeight: 'bold' }}><TbLetterI style={{ color: 'var(--first-color)'}}/> Disclaimer</p>
+        <p style={{ color: '#000', fontSize: '15px', marginLeft: '10px' }}>Moviesstream.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
       </div>
-
-      <div style={{ height: '100px', backgroundColor: 'black' }}>
+      <div style={{ marginTop: '60px', height: '100px', backgroundColor: 'black', opacity: '80%' }}>
 
       </div>
-
+     
     </div>
   );
 };

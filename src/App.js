@@ -33,7 +33,7 @@ function App() {
   return (
     
     <div className="App">
-
+      <div className='app-content'>
         {/* Conditionally render Navbar */}
         {!isAdminPage && <Navbar />}
         <Routes>
@@ -59,9 +59,13 @@ function App() {
           {/* Redirect to home for unmatched routes */}
           {/*<Route path="*" element={<Navigate to="/" />} />*/}
         </Routes>
-
+        
         
     <ScrollToTop />
+    
+    </div>
+    
+
     </div>
   );
 }

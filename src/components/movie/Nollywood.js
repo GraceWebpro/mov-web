@@ -51,6 +51,9 @@ const Nollywood = () => {
       ))}
       
     </div>
+    <div style={{ marginTop: '60px', height: '100px', backgroundColor: 'black', opacity: '80%' }}>
+
+    </div>
     </div>
   );
 };

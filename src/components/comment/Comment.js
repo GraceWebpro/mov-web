@@ -38,14 +38,18 @@ const CommentSection = () => {
     useEffect(() => {
         const fetchComments = async () => {
           
-          const querySnapshot = await getDocs(collection(db, 'comments'));
+          try {
+              const querySnapshot = await getDocs(collection(db, 'comments'));
 
-          const commentsArray = [];
-          querySnapshot.docs.map(doc => ({
+         const data = [];
+         querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
           }));
-          setComments(commentsArray);
+          setComments(data);
+          } catch (error) {
+              console.error('Error fetching comments', error);
+          }
         };
     
         fetchComments();
@@ -138,11 +142,12 @@ const CommentSection = () => {
     return (
         <div className='comment-section'>
             <h4 style={{ color: 'black', opacity: '70%' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>THIS MOVIE HAS {comments?.length || 0} COMMENT{comments?.length !== 1 ? 'S' : ''}</h4>
+            
             <ul className='comment-list'>
                 {comments.map((c) => (
                     <div key={c.id} className='comment'>
-                        <p>
-                            <strong>{c.username}</strong><span>{c.date}</span>
+                        <p style={{ display: 'flex' }}>
+                            <strong>{c.username}</strong><span style={{ color: '#000', opacity: '70%' }}>{c.createdAt}</span>
                             <div>
                                 <button onClick={() => handleReplyClick(c.id)} className='reply-btn'>REPLY</button>
                                 {showReplyForm && replyingTo === c.id && (

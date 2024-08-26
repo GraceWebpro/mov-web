@@ -42,7 +42,7 @@ const HowTo = () => {
                 <p>Streammovies.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
             </div>
 
-            <div style={{ height: '80px', color: 'black', opacity: '60%' }}>
+            <div style={{ marginTop: '60px', height: '100px', backgroundColor: 'black', opacity: '80%' }}>
 
             </div>
         </div>

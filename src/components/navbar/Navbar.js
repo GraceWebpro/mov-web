@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
         <Link to="/" className="nav__logo">
-                <img src={logo} alt='logo' width='30' height='30' /> Movie Stream 
+                <img src={logo} alt='logo' width='30' height='30' style={{ marginRight: '10px'}}/>  Movie Stream 
             </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
@@ -57,7 +57,7 @@ const Navbar = () => {
                How to download
              </Link>
            </li>
-           <NavSearch />
+           <NavSearch claasName='nav-search' />
           </ul>
         </div>
       </div>

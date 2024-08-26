@@ -134,6 +134,7 @@
 
   .reply-btn {
       color: var(--first-color);
+      margin-left: 20px;
   }
 
   .comment-section p {

@@ -45,7 +45,6 @@ const Search = () => {
 
   return (
     <div>
-      <h3 className='heading'>Search for what to download here</h3>
       <SearchBar onSearch={handleSearch} />
       {loading && <p style={{ marginLeft: '15px', cursor: 'pointer' }}>Loading...</p>}
       {!loading && noResults && <p style={{ color: '#000', marginLeft: '15px', cursor: 'pointer' }}>No results found.</p>}

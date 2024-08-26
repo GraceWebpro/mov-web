@@ -45,6 +45,14 @@ button {
   transform: scale(0.95);
 }
 
+.heading {
+  font-weight: 500;
+  color: #000;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
 /* App.css */
 ul {
   list-style-type: none;
@@ -104,7 +112,7 @@ video {
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0 10px;
-  margin-top: -100px;
+  margin-top: -110px;
 }
 
 .notice-section .left {

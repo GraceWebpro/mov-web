@@ -17,7 +17,7 @@ const Hero = () => {
                         <p>Notice:</p>
                         <p>Movie Stream has pop ads which means a new tab opens once you click just click (close the new tab) and continue browsing. Join our telegram channel to receive live updates and be among the first to know once a movie is uploaded. You can also use the chat box below for movie requests, suggestions and feedback ❤️. Most importantly please stay home and stay safe 🤗🤗. We recommend using Chrome to download.</p>
                     </div>
-            <button onClick={handleCancel} className="cancel-btn">x</button>
+            <button onClick={handleCancel} className="cancel-btn" style={{ color: '#fff' }}>x</button>
           </div>
         )}
         <ht>Your hero content</ht>

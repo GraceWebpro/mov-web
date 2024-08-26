@@ -8,7 +8,7 @@
 }
 
 :root {
- --header-height: 4.5rem;
+ --header-height: 4.0rem;
  --first-color: hsl(28, 88%, 62%);
  --title-color: hsl(0, 0%, 95%);
  --text-color: hsl(0, 0%, 75%);
@@ -30,6 +30,7 @@ body {
  box-sizing: border-box;
  padding: 0;
  margin: 0;
+ 
 }
 
 ul {
