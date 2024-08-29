@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from '../home/search/SearchBar';
 import { fetchMovies } from '../home/search/FetchMovies'; // Adjust the import based on your setup
-//import "./Search.css"
+import "./Navbar.css"
 import { useNavigate } from 'react-router-dom';
 
 
@@ -44,8 +44,7 @@ const NavSearch = () => {
 
 
   return (
-    <div>
-      <h3 className='heading'>Search for what to download here</h3>
+    <div className='nav-search'>
       <SearchBar onSearch={handleSearch} />
       {loading && <p style={{ marginLeft: '15px', cursor: 'pointer' }}>Loading...</p>}
       {!loading && noResults && <p style={{ color: '#000', marginLeft: '15px', cursor: 'pointer' }}>No results found.</p>}

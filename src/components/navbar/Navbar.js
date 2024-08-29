@@ -63,7 +63,7 @@ const Navbar = () => {
                How to download
              </Link>
            </li>
-           <NavSearch claasName='nav-search' style={{ display: 'none' }} />
+           <NavSearch />
           </ul>
         </div>
       </div>
