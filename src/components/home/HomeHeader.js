@@ -8,7 +8,6 @@ import HomeMovies from './HomeMovies';
 
 
 
-
 function HomeHeader({ user, selected }) {
     return (
         <div className='HomeHeader'>

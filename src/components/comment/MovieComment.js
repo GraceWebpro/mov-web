@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './Comment.css'
 import { MdArrowForwardIos } from 'react-icons/md';
-import { collection, onSnapshot, Timestamp, addDoc, serverTimestamp, getDocs, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import { query, orderBy, where, limit, startAfter } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { IoIosArrowForward } from 'react-icons/io';
-
 
 const CommentSection = () => {
-      const [lastComment, setLastComment] = useState(null);
-      const [totalComments, setTotalComments] = useState(0);
-        const [loadingMore, setLoadingMore] = useState(false)
+      const [lastVisible, setLastVisible] = useState(null);
+
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
@@ -20,8 +17,6 @@ const CommentSection = () => {
     const [replyingTo, setReplyingTo] = useState(null);
     const [reply, setReply] = useState('');
     const [showReplyForm, setShowReplyForm] = useState(null);
-
-    const COMMENTS_LIMIT = 5;
 
     useEffect(() => {
         if (saveDetails) {
@@ -47,20 +42,14 @@ const CommentSection = () => {
     useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const q = query(collection(db, 'comments'), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
+        const q = query(collection(db, 'comments'), orderBy('createdAt', 'desc'), limit(8));
         const querySnapshot = await getDocs(q);
         const moviesList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-            createdAt: doc.data().createdAt?.toDate() || null,
-
         }));
         setComments(moviesList);
-        setLastComment(querySnapshot.docs[querySnapshot.docs.length - 1]);
-      
-        const allComments = await getDocs(collection(db, 'comments'));
-        setTotalComments(allComments.size);
-      
+        setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
       } catch (error) {
         console.error("Error fetching movies: ", error);
       }
@@ -98,47 +87,17 @@ const CommentSection = () => {
             email,
             comment,
             replies: [],
+            createdAt: serverTimestamp(),
         };
 
         try {
             const docRef = await addDoc(collection(db, 'comments'), newComment);
-            
-            setComments([...comments, { id: docRef.id, ...newComment, createdAt: serverTimestamp()  }]);
-
-            const moviesSnapshot = await getDocs(collection(db, comments));
-            const movieList = moviesSnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-                createdAt: doc.data().createdAt?.toDate() || null,
-
-            }));
-            setComments(movieList);
+            setComments([...comments, { id: docRef.id, ...newComment }]);
         } catch (error) {
             console.error('Error adding comment: ', error);
         }
 
         setComment('');
-    };
-
-    const loadMore = async () => {
-        if (lastComment) {
-        setLoadingMore(true);
-            const commentRef = collection(db, 'comments');
-
-      const q = query(commentRef, orderBy('createdAt', 'desc'), startAfter(lastComment), limit(COMMENTS_LIMIT));
-      
-      const querySnapshot = await getDocs(q);
-      const moreMovies = querySnapshot.docs.map((doc) => ({
-            id: doc.id, ...doc.data() })
-        );
-
-      setComments(prevComments => [...prevComments, ...moreMovies]);
-      
-      setLastComment(querySnapshot.docs[querySnapshot.docs.length - 1]);
-                  setLoadingMore(false);
-
-    }
-       
     };
 
     const handleReplySubmit = async (e, commentId) => {
@@ -180,36 +139,49 @@ const CommentSection = () => {
         setReplyingTo(commentId);
     };
 
-    
+
 
     return (
         <div className='comment-section'>
-            <h4 style={{ color: 'black', opacity: '70%', marginBottom: '20px' }}><IoIosArrowForward style={{ color: 'var(--first-color)'}}/>THIS MOVIE HAS {totalComments} COMMENT{comments?.length !== 1 ? 'S' : ''}</h4>
+            <h4 style={{ color: 'black', opacity: '70%' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>THIS MOVIE HAS {comments?.length || 0} COMMENT{comments?.length !== 1 ? 'S' : ''}</h4>
             
             <ul className='comment-list'>
-                {comments.length > 0 ? (
-                    comments.map((c) => (
+                {comments.map((c) => (
                     <div key={c.id} className='comment'>
                         <p style={{ display: 'flex' }}>
-                            <strong>{c.username}</strong>
-                           
+                            <strong>{c.username}</strong><span style={{ color: '#000', opacity: '70%' }}>time</span>
+                            <div>
+                                <button onClick={() => handleReplyClick(c.id)} className='reply-btn'>REPLY</button>
+                                {showReplyForm && replyingTo === c.id && (
+                                    <div>
+                                        <div style={{ display: 'flex' }}>
+                                            <h3>Reply to {c.username}</h3>
+                                            <button onClick={handleCancelReply} className='cancel-btn'>Cancel</button>
+
+                                        </div>
+                                        <textarea value={reply} onChange={handleReplyChange} placeholder='Your response here...' required />
+                                        <input type='text' value={username} onChange={usernameChange} placeholder='Name (required)' />
+                                        <input type='email' value={email} onChange={EmailChange} placeholder='Email (required)' />
+
+                                        <button onClick={(event) => handleReplySubmit(event, c.id)}>Submit</button>
+
+                                    </div>
+                                )}
+                            </div>
                         </p>
                         <p>{c.comment}</p>
-                        <span style={{ color: '#000', opacity: '70%', marginTop: '20px' }}>{c.createdAt ? c.createdAt.toLocaleString() : 'No Date'}</span>
-                        
+                        {c.replies.length > 0 && (
+                            <ul>
+                                {c.replies.map((r, index) => (
+                                    <li key={index}>
+                                    <strong>{r.username}</strong>
+                                    <p>{r.reply}</p>
+                                </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                ))
-                ) : (
-                    <p>No comments yet</p>
-                )}
-
-                {comments.length < totalComments && (
-                    <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', marginTop: '30px' }}>
-                    <button onClick={loadMore} disabled={loadingMore}>
-                        {loadingMore ? 'Loading...' : 'Load More Comments'}
-                    </button>
-                    </div>
-                )}
+                ))}
             </ul>
            {!showReplyForm && (
                 <form className='comment-container' onSubmit={handleSubmit}>

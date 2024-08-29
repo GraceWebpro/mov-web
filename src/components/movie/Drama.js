@@ -39,17 +39,17 @@ const Drama = () => {
 
     <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
       {movies.map((movie) => (
-        <div key={movie.id} onClick={() => handleMovieClick(movie.id)} className="card" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', minWidth: '100px', }}>
-          <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', borderRadius: '8px' }} />
+        <div key={movie.id} onClick={() => handleMovieClick(movie.id)} className="card" style={{ border: '1px solid #ccc', borderRadius: '0px', padding: '0px', minWidth: '100px', }}>
+          <img src={movie.thumbnailUrl} alt={movie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
           <div className="details">
           
-            <h3 className="movie-card__title">{movie.title}</h3>
-            <p className="desc">{movie.category}</p>
+            <p className="desc">{movie.title} ({movie.status}) | {movie.category}</p>
 
           
           </div>
         </div>
       ))}
+      
       
     </div>
     <div style={{ marginTop: '60px', height: '100px', backgroundColor: 'black', opacity: '80%' }}>

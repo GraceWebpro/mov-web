@@ -10,7 +10,8 @@ import { TbLetterI, TbLetterISmall } from 'react-icons/tb';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import Search from '../home/search/Search'
 import { fetchSimilarMovies } from './SimilarMovie';
-import { MdArrowForwardIos } from 'react-icons/md';
+import { IoIosArrowForward } from 'react-icons/io';
+
 
 
 const MovieDetail = () => {
@@ -116,7 +117,6 @@ const tags = movie.tags || [];
         </div>
         <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000'}}>
           <h3>Cast : {movie.cast.length > 0 ? cast.join(', ') : 'No cast information available'}</h3>
-        
         </div>
 
 
@@ -160,7 +160,7 @@ const tags = movie.tags || [];
         </ul>
       
         <div style={{ alignSelf: 'flex-start', marginTop: '20px' }}>
-          <h3 style={{ fontSize: '18px', opacity: '90%' }}><MdArrowForwardIos style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
+          <h3 style={{ fontSize: '18px', opacity: '90%' }}><IoIosArrowForward style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
           <div style={{ alignSelf: 'flex-start' }}>
             {similarMovies.length > 0 ? (
               <ul className='wrapper'>
@@ -191,7 +191,7 @@ const tags = movie.tags || [];
       <Search />
 
       <div className="disclaimer-section">
-        <p style={{ display: 'flex', color: 'var(--first-color)', fontWeight: 'bold' }}><TbLetterI style={{ color: 'var(--first-color)'}}/> Disclaimer</p>
+        <p style={{ display: 'flex', color: 'var(--first-color)', fontWeight: 'bold' }}>| Disclaimer</p>
         <p style={{ color: '#000', fontSize: '15px', marginLeft: '10px' }}>Moviesstream.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
       </div>
       <div style={{ marginTop: '60px', height: '100px', backgroundColor: 'black', opacity: '80%' }}>
