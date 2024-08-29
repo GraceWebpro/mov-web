@@ -3,6 +3,8 @@
     position: relative;
     width: 100%;
     top: 0;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     background-color: transparent;
     z-index: var(--z-fixed);

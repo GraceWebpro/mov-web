@@ -192,7 +192,7 @@ const tags = movie.tags || [];
 
       <div className="disclaimer-section">
         <p style={{ display: 'flex', color: 'var(--first-color)', fontWeight: 'bold' }}>| Disclaimer</p>
-        <p style={{ color: '#000', fontSize: '15px', marginLeft: '10px' }}>Moviesstream.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
+        <p style={{ color: '#000', fontSize: '15px', marginLeft: '10px' }}>Moviestream.com doees not claim ownership of any movie on this site. If your copyrighted material has been uploaded or links to your copyrighted material has been uploaded, kindly click here to file a take down notice.</p>
       </div>
       <div style={{ marginTop: '60px', height: '100px', backgroundColor: 'black', opacity: '80%' }}>
 
