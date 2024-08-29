@@ -338,13 +338,13 @@
 
 @media (max-width: 379px) {
     .card {
-        width: 160px;
+        width: 150px;
     }
 }
 
 @media (max-width: 359px) {
     .card {
-        width: 140px;
+        width: 130px;
     }
 }
 
