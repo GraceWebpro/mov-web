@@ -96,8 +96,8 @@ const tags = movie.tags || [];
 
 
   return (
-    <div className='center' style={{ paddingLeft: '10px', paddingRight: '10px'}}>
-      <div className='hero-sec'>
+    <div className='center' style={{ paddingLeft: '0px', paddingRight: '0px'}}>
+      <div className='hero-sec' style={{ marginTop: '60px'}}>
         <div className="another-image">
           <img src={Image} alt="ano" className="image" />
           <p style={{ color: "black", opacity: '0%'}}>...</p>
@@ -161,12 +161,12 @@ const tags = movie.tags || [];
       
         <div style={{ alignSelf: 'flex-start', marginTop: '20px' }}>
           <h3 style={{ fontSize: '18px', opacity: '90%' }}><IoIosArrowForward style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
-          <div style={{ alignSelf: 'flex-start' }}>
+          <div>
             {similarMovies.length > 0 ? (
               <ul className='wrapper' style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
                 {similarMovies.map((similarMovie) => (
                   <Link to={`/movies/${similarMovie.id}`}>
-                    <li key={similarMovie.id} className='card' style={{ border: '1px solid #ccc', borderRadius: '0px', padding: '0px', minWidth: '100px', }}>
+                    <li key={similarMovie.id} className='cardd' style={{ border: '1px solid #ccc', borderRadius: '0px', padding: '0px', minWidth: '100px', }}>
                       <img src={similarMovie.thumbnailUrl} alt={similarMovie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
                       
                       <div className="details">
