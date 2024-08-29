@@ -33,9 +33,10 @@ function App() {
   return (
     
     <div className="App">
-      <div className='app-content'>
         {/* Conditionally render Navbar */}
         {!isAdminPage && <Navbar />}
+        <div className='app-content'>
+
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<HomeHeader />} />

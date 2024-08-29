@@ -147,7 +147,7 @@ const tags = movie.tags || [];
                 <p>Notice:</p>
                 <p>Video is encoded in x265 and it may not play on some phones without VLC or MX video player. It might not play on some TVs.</p>
               </div>
-              <button onClick={handleCancel} className="cancel-btn">x</button>
+              <button onClick={handleCancel} className="cancel-btn" style={{ marginTop: '-45px', color: '#fff'}}>x</button>
             </div>
           )}
         <ul style={{ alignSelf: 'flex-start' }}>
@@ -163,10 +163,10 @@ const tags = movie.tags || [];
           <h3 style={{ fontSize: '18px', opacity: '90%' }}><IoIosArrowForward style={{ color: 'var(--first-color)'}}/>YOU MIGHT ALSO LIKE</h3>
           <div style={{ alignSelf: 'flex-start' }}>
             {similarMovies.length > 0 ? (
-              <ul className='wrapper'>
+              <ul className='wrapper' style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
                 {similarMovies.map((similarMovie) => (
                   <Link to={`/movies/${similarMovie.id}`}>
-                    <li key={similarMovie.id} className='card'>
+                    <li key={similarMovie.id} className='card' style={{ border: '1px solid #ccc', borderRadius: '0px', padding: '0px', minWidth: '100px', }}>
                       <img src={similarMovie.thumbnailUrl} alt={similarMovie.title} className="poster" style={{ width: '100%', height: '320px', borderRadius: '0px' }} />
                       
                       <div className="details">
@@ -185,7 +185,7 @@ const tags = movie.tags || [];
           </div>
         </div>
 
-        <CommentSection />
+        <CommentSection movieId={id}/>
       </div>
 
       <Search />

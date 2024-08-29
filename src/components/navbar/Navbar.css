@@ -117,6 +117,7 @@ nav {
 
   .nav-search {
     display: block;
+    width: 100%;
   }
 
   .nav-elements {

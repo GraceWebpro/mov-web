@@ -14,6 +14,10 @@ const Navbar = () => {
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar)
+  };
+
+  const closeNavbar = () => {
+    setShowNavbar(false);
   }
 
   return (
@@ -32,12 +36,12 @@ const Navbar = () => {
         <div className={`nav-elements  ${showNavbar && 'active'}`}>
           <ul>
           <li className="nav__item">
-             <Link to="/" className="nav__link" >
+             <Link to="/" className="nav__link" onClick={closeNavbar}>
                Home
              </Link>
            </li>
            <li className="nav__item">
-             <Link to="k-drama" className="nav__link">
+             <Link to="k-drama" className="nav__link" onClick={closeNavbar}>
                Korea Drama 
              </Link>
            </li>
@@ -45,6 +49,7 @@ const Navbar = () => {
              <Link
                to="nollywood"
                className="nav__link"
+               onClick={closeNavbar}
              >
                Nollywood 
              </Link>
@@ -53,11 +58,12 @@ const Navbar = () => {
              <Link
                to="how-to-download"
                className="nav__link"
+               onClick={closeNavbar}
              >
                How to download
              </Link>
            </li>
-           <NavSearch claasName='nav-search' />
+           <NavSearch claasName='nav-search' style={{ display: 'none' }} />
           </ul>
         </div>
       </div>

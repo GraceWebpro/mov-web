@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 
 
-const CommentSection = () => {
+const CommentSection = ({ movieId }) => {
       const [lastComment, setLastComment] = useState(null);
       const [totalComments, setTotalComments] = useState(0);
         const [loadingMore, setLoadingMore] = useState(false)
@@ -47,7 +47,7 @@ const CommentSection = () => {
     useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const q = query(collection(db, 'comments'), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
+        const q = query(collection(db, 'comments'), where('id', '==', movieId), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
         const querySnapshot = await getDocs(q);
         const moviesList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -66,8 +66,10 @@ const CommentSection = () => {
       }
     };
 
-    fetchMovies();
-  }, []);
+    if (movieId) {
+        fetchMovies();
+    }
+  }, [movieId]);
 
     const EmailChange = (e) => {
         setEmail(e.target.value);
