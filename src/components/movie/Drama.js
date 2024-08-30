@@ -35,7 +35,7 @@ const Drama = () => {
 
   return (
     <div>
-    <h2 style={{ color: 'black', marginTop: '30px', marginLeft: '10px'}}>New Nollywood Uploads</h2>
+    <h2 style={{ color: 'black', marginTop: '30px', marginLeft: '10px'}}>Korea Dramas</h2>
 
     <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
       {movies.map((movie) => (

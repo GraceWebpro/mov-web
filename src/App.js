@@ -35,19 +35,8 @@ function App() {
     <div className="App">
         {/* Conditionally render Navbar */}
         {!isAdminPage && <Navbar />}
-        <div className='app-content'>
-
         <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<HomeHeader />} />
-          <Route path='/k-drama' element={<Drama />} />
-          <Route path='/nollywood' element={<Nollywood />} />
-          <Route path='/how-to-download' element={<HowTo />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="movies/:id" element={<MovieDetail />} />
-          <Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />
-          
-          {/* Admin Routes */}
+        {/* Admin Routes */}
           <Route path="/admin" element={user ? <Navigate to='/admin/dashboard' /> : <Navigate to='/admin/login' />} />
           <Route path="/admin/upload-movie" element={<UploadMovie />} />
           <Route path="/admin/upload-episode" element={<UploadEpisode />} />
@@ -57,8 +46,23 @@ function App() {
 
           <Route path="/admin/login" element={<AdminAuth />} />
           <Route path="/admin/signup" element={<AdminRegister />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+        </Routes>
+        <div className='app-content'>
+
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<HomeHeader />} />
+          <Route path='/k-drama' element={<Drama />} />
+          <Route path='/nollywood' element={<Nollywood />} />
+          <Route path='/how-to-download' element={<HowTo />} />
+          <Route path="movies/:id" element={<MovieDetail />} />
+          <Route path="/movie/:title/episode/:episodeNumber" element={<EpDownload />} />
+          
+          
           {/* Redirect to home for unmatched routes */}
-          {/*<Route path="*" element={<Navigate to="/" />} />*/}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         
         

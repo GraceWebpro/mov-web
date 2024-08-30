@@ -13,11 +13,13 @@ const MovieCard = () => {
   //const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
   
+    const COMMENTS_LIMIT = 8;
+
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const q = query(collection(db, 'movies'), where('category', '==', 'K drama'), orderBy('createdAt', 'desc'), limit(8));
+        const q = query(collection(db, 'movies'), where('category', '==', 'K drama'), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
         const querySnapshot = await getDocs(q);
         const moviesList = querySnapshot.docs.map((doc) => ({
           id: doc.id,

@@ -1,8 +1,10 @@
-import { getDocs, query, where } from 'firebase/firestore';
+import { getDocs, query, where, limit } from 'firebase/firestore';
 import { movieCollectionRef } from '../../config/Firestore-collections'
 
 export const fetchSimilarMovies = async (tags, id) => {
-  const q = query(movieCollectionRef, where('tags', 'array-contains-any', tags));
+
+  const COMMENTS_LIMIT = 6;
+  const q = query(movieCollectionRef, where('tags', 'array-contains-any', tags), limit(COMMENTS_LIMIT));
 
   const querySnapshot = await getDocs(q);
   const similarMovies = [];

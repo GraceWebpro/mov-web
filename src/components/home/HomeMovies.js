@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../movie/MovieCard.css'; // Import a CSS file for styling (optional)
-import { getDocs, orderBy, where, query, collection } from 'firebase/firestore';
+import { getDocs, orderBy, where, query, collection, limit } from 'firebase/firestore';
 //import { movieCollectionRef } from '../../config/Firestore-collections';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -10,11 +10,13 @@ import { db } from '../../config/Firebase'
 const MovieCard = () => {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
+    
+  const COMMENTS_LIMIT = 8;
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const q = query(collection(db, 'movies'), where('category', '==', 'Nollywood'), orderBy('createdAt', 'desc'));
+        const q = query(collection(db, 'movies'), where('category', '==', 'Nollywood'), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
         const moviesSnapshot = await getDocs(q);
         const moviesList = moviesSnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -35,7 +37,7 @@ const MovieCard = () => {
 
 
   return (
-    <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding: '0 5px' }}>
+    <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding: '0 5px', marginTop: '60px' }}>
       <h2 style={{ color: 'black', marginTop: '30px', marginLeft: '10px', alignSelf: 'flex-start'}}>New Nollywood Uploads</h2>
 
       <div className="wrapper" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', }}>
@@ -52,7 +54,7 @@ const MovieCard = () => {
         ))}
         
       </div>
-    <Link to='nollywood'><button className='card-btn' style={{ textAlign: 'center', justifyContent: 'center', marginTop: '20px' }} >View All Nolyywood Movies</button></Link>
+    <Link to='nollywood'><button className='card-btn' style={{ textAlign: 'center', justifyContent: 'center', marginTop: '40px' }} >View All Nolyywood Movies</button></Link>
 
     </div>
   );

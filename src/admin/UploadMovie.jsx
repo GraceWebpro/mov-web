@@ -145,7 +145,6 @@ const UploadMovie = () => {
 
         <button type="submit">Upload Video</button>
       </form>
-      {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
 
       </div>
       </div>  

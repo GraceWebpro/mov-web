@@ -11,7 +11,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 const CommentSection = ({ movieId }) => {
       const [lastComment, setLastComment] = useState(null);
       const [totalComments, setTotalComments] = useState(0);
-        const [loadingMore, setLoadingMore] = useState(false)
+    const [loadingMore, setLoadingMore] = useState(false)
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
@@ -47,18 +47,20 @@ const CommentSection = ({ movieId }) => {
     useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const q = query(collection(db, 'comments'), where('id', '==', movieId), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
-        const querySnapshot = await getDocs(q);
+        //const q = query(collection(db, 'comments'), where('movieId', '==', movieId), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
+        const querySnapshot = await getDocs(collection(db, 'comments'), where('movieId', '==', movieId), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
+        //const querySnapshot = await getDocs(q);
+
         const moviesList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-            createdAt: doc.data().createdAt?.toDate() || null,
+            createdAt: doc.data().createdAt.toDate(),
 
         }));
         setComments(moviesList);
         setLastComment(querySnapshot.docs[querySnapshot.docs.length - 1]);
       
-        const allComments = await getDocs(collection(db, 'comments'));
+        const allComments = await getDocs(collection(db, 'comments'), where('movieId', '==', movieId));
         setTotalComments(allComments.size);
       
       } catch (error) {
@@ -95,30 +97,56 @@ const CommentSection = ({ movieId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newComment = {
-            username,
-            email,
-            comment,
-            id: movieId,
-            replies: [],
-        };
-
-        try {
-            const docRef = await addDoc(collection(db, 'comments'), newComment);
+        if(comment.trim()) {
             
-            setComments([...comments, { id: docRef.id, ...newComment, createdAt: serverTimestamp()  }]);
+        try {
 
-            const moviesSnapshot = await getDocs(collection(db, comments));
-            const movieList = moviesSnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-                createdAt: doc.data().createdAt?.toDate() || null,
+            const commRef = collection(db, 'comments');
 
-            }));
-            setComments(movieList);
+            const newCommentDoc =  await addDoc(commRef, {
+                username,
+                email,
+                comment,
+                movieId: movieId,
+                replies: [],
+                createdAt: serverTimestamp(),
+            });
+
+            const newComment = {
+                id: newCommentDoc.id,
+                 username,
+                email,
+                comment,
+                movieId: movieId,
+                replies: [],
+                createdAt: new Date(),
+            };
+
+            
+           
+            setComments([newComment, ...comments]);
+            setComment('');
+            //const ref = collection(db, 'comments');
+            //const q = query(ref, where('movieId', '==', movieId), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
+            //const querySnapshot = await getDocs(q);
+            //const querySnapshot = await getDocs(collection(db, 'comments'), where('movieId', '==', movieId), orderBy('createdAt', 'desc'), limit(COMMENTS_LIMIT));
+            //const movieList = querySnapshot.docs.map(doc => ({
+            //    id: doc.id,
+            //    ...doc.data(),
+            //createdAt: doc.data().createdAt.toDate(),
+
+            //}));
+            //setComments(movieList);
+            //setLastComment(querySnapshot.docs[querySnapshot.docs.length - 1]);
+      
+            const allComments = await getDocs(collection(db, 'comments'), where('movieId', '==', movieId));
+            setTotalComments(totalComments + 1);
         } catch (error) {
             console.error('Error adding comment: ', error);
         }
+        }
+    
+
 
         setComment('');
     };
@@ -132,7 +160,8 @@ const CommentSection = ({ movieId }) => {
       
       const querySnapshot = await getDocs(q);
       const moreMovies = querySnapshot.docs.map((doc) => ({
-            id: doc.id, ...doc.data() })
+            id: doc.id, ...doc.data(),             createdAt: doc.data().createdAt.toDate(),
+ })
         );
 
       setComments(prevComments => [...prevComments, ...moreMovies]);

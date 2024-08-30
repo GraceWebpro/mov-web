@@ -106,7 +106,7 @@ const tags = movie.tags || [];
       <div className='content' style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
         <p className='p-title'>Download Korean {movie.title} ({movie.category})</p>
         <img src={movie.thumbnailUrl} alt={movie.title} style={{ width: '250px', height: '320px' }} />
-        <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000', alignSelf: 'flex-start' }}>
+        <div className='flex' style={{ alignSelf: 'flex-start', display: 'flex', color: '#000', alignSelf: 'flex-start', marginTop: '30px' }}>
           <h4>TAGS : {movie.tags.length > 0 ? tags.join(', ') : 'No tags information available'}</h4>
         
         </div>
