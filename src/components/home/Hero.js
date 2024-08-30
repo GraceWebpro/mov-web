@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from '../../assets/Dramakey-ad.jpeg';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Hero = () => {
     const [showNotice, setShowNotice] = useState(true);
@@ -20,7 +21,14 @@ const Hero = () => {
             <button onClick={handleCancel} className="cancel-btn" style={{ color: '#fff' }}>x</button>
           </div>
         )}
-        <ht>Your hero content</ht>
+        <div className='cont' style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <h3 style={{ color: '#fff', fontWeight: '600' }}>Join Our Community to get live updates</h3>
+          <div className='social' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '20px', margin: '0 auto', marginTop: '10px' }}>
+            <a href='https://www.facebook.com' style={{ color: '#fff', fontSize: '25px' }}><FaFacebook /> </a>
+            <a href='https://www.instagram.com' style={{ color: '#fff', fontSize: '25px' }}><FaInstagram /></a>
+            <a href='https://wwww.twitter.com' style={{ color: '#fff', fontSize: '25px' }}><FaTwitter /></a>
+          </div>
+        </div>
         <div className="another-image">
           <img src={Image} alt="ano" className="image" />
           <p style={{ color: "black", opacity: '0%'}}>...</p>

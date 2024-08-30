@@ -99,6 +99,7 @@ const CommentSection = ({ movieId }) => {
             username,
             email,
             comment,
+            id: movieId,
             replies: [],
         };
 

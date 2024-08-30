@@ -103,7 +103,7 @@ video {
 }
 
 .another-image {
-  margin-top: 20px;
+  margin-top: 10px;
   
 }
 
@@ -114,6 +114,14 @@ video {
   cursor: pointer;
   padding: 0 10px;
   margin-top: -110px;
+}
+
+.social svg {
+  cursor: pointer;
+}
+
+.social svg:hover {
+  color: var(--first-color);
 }
 
 .notice-section .left {
@@ -132,5 +140,6 @@ video {
 
 .another-image {
     width: 90%;
+
 }
 }
