@@ -60,8 +60,8 @@ const EpDownload = () => {
       URL.revokeObjectURL(url);
     } catch (error) {
     console.error('Error downloading the video:', error);
-    };
-  
+    }
+  };
     
     return(
         <div className='download-page' style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
