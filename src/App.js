@@ -62,7 +62,7 @@ function App() {
           
           
           {/* Redirect to home for unmatched routes */}
-          <Route path="*" element={<Navigate to="/" />} />
+  {/*<Route path="*" element={<Navigate to="/" />} />*/}
         </Routes>
         
         
