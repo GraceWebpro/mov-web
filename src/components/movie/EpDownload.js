@@ -38,6 +38,30 @@ const EpDownload = () => {
     }
 
     
+  const handleDownload = async () => {
+    try {
+      // Fetch the video data from the URL
+      const response = await fetch(videoUrl);
+      const blob = await response.blob();
+
+      // Create a temporary anchor element
+      const downloadLink = document.createElement('a');
+      const fileName = `${title}-${episodeNumber}.(MovieStream).mp4`; // Custom file name with app name
+
+      // Create a Blob URL and set it as href for the anchor
+      const url = URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = fileName; // Custom file name
+
+      // Programmatically click the anchor to trigger the download
+      downloadLink.click();
+
+      // Clean up the URL after download
+      URL.revokeObjectURL(url);
+    } catch (error) {
+    console.error('Error downloading the video:', error);
+    };
+  
     
     return(
         <div className='download-page' style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
@@ -48,7 +72,7 @@ const EpDownload = () => {
                 <FaDownload /> Create Download Link
             </a>
             
-           
+           <button onClick={handleDownload}>Create Download Link</button>
         </div>
     )
 };
