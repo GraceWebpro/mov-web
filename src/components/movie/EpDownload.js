@@ -72,7 +72,7 @@ const EpDownload = () => {
                 <FaDownload /> Create Download Link
             </a>
             
-           <button onClick={handleDownload}>Create Download Link</button>
+           
         </div>
     )
 };
