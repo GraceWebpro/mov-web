@@ -68,7 +68,7 @@ const EpDownload = () => {
 
             <h3 style={{ marginTop: '300px', marginBottom: '20px', color: '#000' }}>{title} - Episode {episodeNumber}</h3>
 
-            <a href={videoUrl} style={{ backgroundColor: 'var(--first-color)', color: '#fff', padding: '15px 20px', fontSize: '18px', borderRadius: '8px', marginTop: '20px' }}>
+            <a href={videoUrl} download={`${title}-${episodeNumber}.(MovieStream).mp4`} style={{ backgroundColor: 'var(--first-color)', color: '#fff', padding: '15px 20px', fontSize: '18px', borderRadius: '8px', marginTop: '20px' }}>
                 <FaDownload /> Create Download Link
             </a>
             
