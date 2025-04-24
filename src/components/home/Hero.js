@@ -11,7 +11,8 @@ const Hero = () => {
 
   return (
     <div>
-      <div className='hero-section' style={{ backgroundImage: '    url(https://images.pexels.com/photos/133325/pexels-photo-133325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=600&dpr=1)' }}>
+      <div className='hero-section'>
+        {/*style={{ backgroundImage: '    url(https://images.pexels.com/photos/133325/pexels-photo-133325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=600&dpr=1)' }}*/}
         {showNotice && (
           <div className="notice-section">
             <div className='left'>

@@ -1,0 +1,59 @@
+.genres-slider-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .genres-scroll-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 15px;
+    width: 100%;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .genres-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .genre-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+  }
+  
+  .genre-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .scroll-arrow.left {
+    left: 5px;
+  }
+  
+  .scroll-arrow.right {
+    right: 5px;
+  }
+  
